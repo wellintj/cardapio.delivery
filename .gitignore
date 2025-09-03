@@ -52,3 +52,41 @@ Thumbs.db
 .env
 .env.local
 .env.production
+
+# Ignore database dumps and backups
+*.sql
+cardapio.delivery/database/
+cardapio.delivery/*.sql
+
+# Ignore session files
+cardapio.delivery/application/session/
+
+# Ignore large vendor directories
+cardapio.delivery/system/
+cardapio.delivery/addons/
+
+# Ignore Docker files (keep docker-compose.yml)
+cardapio.delivery/docker/
+
+# Ignore CI environment files
+cardapio.delivery/ci-env
+
+# Ignore composer vendor
+cardapio.delivery/vendor/
+
+# Ignore large asset directories (keep main assets)
+cardapio.delivery/assets/uploads/
+cardapio.delivery/public/uploads/
+
+# Ignore error pages (keep main ones)
+cardapio.delivery/error/
+
+# Ignore test files
+cardapio.delivery/teste_*.php
+cardapio.delivery/test.php
+
+# Ignore large zip files
+*.zip
+
+# Ignore cursor files
+.cursor/

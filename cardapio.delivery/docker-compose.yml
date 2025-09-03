@@ -1,0 +1,62 @@
+services:
+  web:
+    build: .
+    container_name: cardapio-web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - ./docker/ssl:/etc/ssl/certs/cardapio
+      - ./docker/apache-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
+    depends_on:
+      - db
+    networks:
+      - cardapio-network
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: cardapio-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: cardapio.delivery-db
+      MYSQL_USER: cardapio.delivery-db-usr
+      MYSQL_PASSWORD: haEY5cLdhMEzrm2D
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./cardapio.delivery-db_20250510_130856.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./docker/mysql-init.sql:/docker-entrypoint-initdb.d/02-create-user.sql
+      - ./docker/mysql-config.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - cardapio-network
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: cardapio-phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    depends_on:
+      - db
+    networks:
+      - cardapio-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  cardapio-network:
+    driver: bridge
