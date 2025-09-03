@@ -1,0 +1,54 @@
+# Ignore vendor directories
+cardapio.delivery/vendor/
+cardapio.delivery/node_modules/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+cardapio.delivery/application/logs/
+*.log
+
+# Ignore cache files
+cardapio.delivery/application/cache/
+
+# Ignore config files with sensitive data
+cardapio.delivery/application/config/database.php
+
+# Ignore uploaded files
+cardapio.delivery/uploads/
+cardapio.delivery/assets/uploads/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore backup files
+*.bak
+*.backup
+*.old
+
+# Ignore compiled files
+*.compiled
+
+# Ignore environment files
+.env
+.env.local
+.env.production
