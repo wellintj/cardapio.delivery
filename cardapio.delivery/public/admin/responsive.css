@@ -1,0 +1,452 @@
+/* Media query for screens up to 768px wide (e.g., smartphones) */
+@media (max-width: 767px) {
+  .orderListCard .card-header {
+    flex-direction: column;
+    min-height: 178px;
+  }
+
+  .orderListCard .card-header {
+    flex-direction: column;
+  }
+
+  .cardTop {
+    flex-direction: column;
+  }
+
+  .restaurantStatusButton {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 10px;
+  }
+
+  .cardButtonArea {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-footer .btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 16px;
+  }
+
+  .kdsFooter a.btn {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
+
+  .content-wrapper {
+    margin-top: 50px;
+  }
+
+  .rightMenuBar {
+    flex: inherit;
+  }
+
+  .gLanguage.p-r .gt_switcher_wrapper {
+    position: absolute !important;
+    margin-top: -9px !important;
+    right: 0 !important;
+    z-index: 999999 !important;
+    top: -37px !important;
+    left: 43px !important;
+  }
+
+  .card-header.justify-content-between.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonGroup * {
+    width: 100%;
+  }
+
+  /* responsive sidebar */
+  .resoponsiveRow {
+    flex-direction: row-reverse;
+  }
+
+  .resoponsiveRow .leftSidebar ul {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    width: 100%;
+    overflow-x: auto;
+    gap: 9px;
+  }
+
+  .resoponsiveRow .leftSidebar ul>li {
+    border-bottom: 1px solid #fafafa;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: stretch;
+    text-wrap: nowrap;
+  }
+
+  .resoponsiveRow .leftSidebar ul li a {
+    padding: .9rem 1.8rem;
+    font-size: 14px;
+    display: flex;
+    border-radius: 0.25rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: stretch;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body {
+    padding: 5px !important;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body span.ab-position {
+    position: absolute;
+    top: 9px;
+    right: auto;
+    transform: translateY(-50%);
+    left: 17px;
+  }
+
+  .kds_shop_header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds_shop__header_right {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds_shop__header_right ul {
+    margin-bottom: 10px;
+  }
+
+  .cardRightArea {
+    flex-direction: column;
+  }
+
+  td.actionTd {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  td.actionTd .btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 15px;
+  }
+
+  td.actionTd .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  td.actionTd .btn-group a {
+    width: 100%;
+  }
+
+  td.actionTd a.dropdown-btn.dropdown-toggle.btn.btn-danger.btn-sm.btn-flat {
+    padding: 3px;
+  }
+
+  td.actionTd ul.dropdown-menu.dropdown-ul li a {
+    display: block;
+    padding: 8px 10px !important;
+    font-size: 15px;
+  }
+
+  .itemListTable .buttonGroup * {
+    width: auto !important;
+  }
+
+  .itemListTable .buttonGroup a {
+    width: 100% !important;
+    margin: 2px;
+  }
+
+  .dropdown-menu {
+    left: 0 !important;
+    float: left;
+    text-align: left;
+    right: auto;
+  }
+
+
+
+}
+
+/* end 320px */
+
+@media (min-width: 678px) and (max-width: 1000px) {
+  .categoryList.posheader {
+    flex-direction: column;
+  }
+
+  ul.posCatList {
+    width: 320px;
+    flex-wrap: nowrap !important;
+    overflow-x: scroll;
+  }
+
+  td.actionTd {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  td.actionTd .btn {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 15px;
+  }
+
+  td.actionTd .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  td.actionTd .btn-group a {
+    width: 100%;
+  }
+
+  td.actionTd a.dropdown-btn.dropdown-toggle.btn.btn-danger.btn-sm.btn-flat {
+    padding: 3px;
+  }
+
+  td.actionTd ul.dropdown-menu.dropdown-ul li a {
+    display: block;
+    padding: 8px 10px !important;
+    font-size: 15px;
+  }
+
+  .cardRightArea {
+    flex-direction: column;
+    min-height: 91px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .kds_shop_header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds_shop__header_right {
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px;
+  }
+
+  .kds_shop__header_right ul {
+    margin-bottom: 10px;
+  }
+
+  .pl-sm-0 {
+    padding-left: 0;
+  }
+
+  .cardTop {
+    flex-direction: column;
+  }
+
+  .restaurantStatusButton {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 10px;
+  }
+
+  .cardButtonArea {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    width: auto;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1225px) {
+  .filterBody {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cardRightArea {
+    flex-direction: column;
+    min-height: 91px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .kdsFooter a.btn {
+    padding: 10px 10px;
+    font-size: 14px;
+  }
+
+  .kds_shop_header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds_shop__header_right {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kds_shop__header_right ul {
+    margin-bottom: 10px;
+  }
+
+  /* responsive sidebar */
+  .resoponsiveRow {
+    flex-direction: row-reverse;
+  }
+
+  .resoponsiveRow>.col-md-3 {
+    width: 100%;
+  }
+
+  .resoponsiveRow .leftSidebar ul {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    width: 100%;
+    overflow-x: auto;
+    gap: 9px;
+  }
+
+  .resoponsiveRow .leftSidebar ul>li {
+    border-bottom: 1px solid #fafafa;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: stretch;
+    text-wrap: nowrap;
+  }
+
+  .resoponsiveRow .leftSidebar ul li a {
+    padding: .9rem 1.8rem;
+    font-size: 14px;
+    display: flex;
+    border-radius: 0.25rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: stretch;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body {
+    padding: 5px !important;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body span.ab-position {
+    position: absolute;
+    top: 9px;
+    right: auto;
+    transform: translateY(-50%);
+    left: 17px;
+  }
+
+}
+
+/* Media query for screens between 769px and 1024px wide (e.g., tablets) */
+@media (min-width: 768px) and (max-width: 1025px) {
+  .gLanguage.p-r .gt_switcher_wrapper {
+    position: inherit;
+  }
+
+
+
+  .menuItemList {
+    margin-top: 16px;
+  }
+
+  /* responsive sidebar */
+  .resoponsiveRow {
+    flex-direction: row-reverse;
+  }
+
+  .resoponsiveRow .leftSidebar ul {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    width: 100%;
+    overflow-x: auto;
+    gap: 9px;
+  }
+
+  .resoponsiveRow .leftSidebar ul>li {
+    border-bottom: 1px solid #fafafa;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: stretch;
+    text-wrap: nowrap;
+  }
+
+  .resoponsiveRow .leftSidebar ul li a {
+    padding: .9rem 1.8rem;
+    font-size: 14px;
+    display: flex;
+    border-radius: 0.25rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+    justify-content: stretch;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body {
+    padding: 5px !important;
+  }
+
+  .resoponsiveRow .col-md-3 .card-body span.ab-position {
+    position: absolute;
+    top: 9px;
+    right: auto;
+    transform: translateY(-50%);
+    left: 17px;
+  }
+}
+
+/* Media query for screens larger than 1024px wide (e.g., desktops) */
+@media (min-width: 1025px) {
+  .my-element {
+    font-size: 20px;
+  }
+
+
+
+}

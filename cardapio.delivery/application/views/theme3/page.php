@@ -1,0 +1,1 @@
+<?php include APPPATH."views/common/page_details.php"; ?>

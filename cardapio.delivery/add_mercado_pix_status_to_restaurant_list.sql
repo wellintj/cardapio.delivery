@@ -1,0 +1,1 @@
+ALTER TABLE `restaurant_list` ADD `is_mercado_pix` INT(1) NOT NULL DEFAULT '0';

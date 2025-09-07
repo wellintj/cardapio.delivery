@@ -1,0 +1,452 @@
+/*----------------------------------------------
+       item details modal           
+----------------------------------------------*/
+
+.itemTitle h4 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--color);
+}
+
+.singleItemContent {
+    padding: 5px 10px;
+}
+
+.modalFooterArea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modalIncreateArea {
+    display: flex;
+    align-items: center;
+}
+
+.modalIncreateArea input {
+    min-width: 50px;
+    border: 0;
+    text-align: center;
+    width: 51px;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+.increaseDecrease input {
+    background-color: var(--background-color) !important;
+    color: var(--color);
+}
+
+.modal-footer {
+    border-color: var(--background-color);
+}
+
+.modalIncreateArea span {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    background: #b2b2b2;
+    color: #fff;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.modalIncreateArea input::-webkit-outer-spin-button,
+.modalIncreateArea input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.modalIncreateArea input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.itemVariants input[name='item_size'],
+.itemVariants input[name='price'] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+.itemVariants {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.itemVariants label.variant-btn {
+    background: var(--soft-background);
+    padding: 5px 20px;
+    font-size: .8rem;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+}
+
+.itemVariants label.variant-btn.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.itemVariants label.variant-btn:first-child {
+    border-top-left-radius: .45rem;
+    border-bottom-left-radius: .45rem;
+}
+
+.itemVariants label.variant-btn:last-child {
+    border-top-right-radius: .45rem;
+    border-bottom-right-radius: .45rem;
+    /* border-right: 0; */
+}
+
+.item_extra_details > * {
+    color: var(--color) !important;
+}
+
+body.modal-open,
+body.modal-open .container {
+    overflow: hidden !important;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: inherit;
+}
+
+.singleItem {
+    max-height: 77dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+ul.extraUl {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+ul.extraUl li {
+    width: 48%;
+    flex: 0 0 48%;
+}
+
+ul.extraUl p {
+    margin: 0;
+}
+
+ul.extraUl input {
+    margin-right: 4px;
+}
+
+ul.extraUl li label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+h5.extrasHeading {
+    color: var(--color);
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.errorMessage {
+    font-size: .8rem;
+    color: red;
+}
+
+.error {
+    color: red;
+}
+
+/*----------------------------------------------
+       item details modal           
+----------------------------------------------*/
+
+
+/*----------------------------------------------
+custom-radio-2
+----------------------------------------------*/
+
+.custom-radio-2 {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.custom-radio-2 input[type=radio] {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.custom-radio-2 input[type=radio] {
+    border: 0;
+    background-color: #eee;
+    height: 1.2rem;
+    width: 1.2rem;
+    margin: 0;
+    float: none;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 50%;
+    transition: 0.25s ease;
+}
+
+.custom-radio-2 input[type=radio]:checked {
+    background-color: var(--defaultColor) !important;
+    transition: 0.25s ease;
+}
+
+.custom-radio-2 input[type=radio]:checked {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23FFFFFF'/%3e%3c/svg%3e");
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    transition: 0.25s ease;
+}
+
+
+.custom-radio-2 input:focus-visible,
+.custom-radio-2 input:focus-visible {
+    outline: 0 !important;
+    border-color: transparent;
+}
+
+.custom-radio-2 input,
+.custom-checkbox input {
+    outline: 0 !important;
+    border-color: transparent;
+}
+
+.custom-radio-2 input[type=radio].error {
+    border: 1px solid red;
+}
+
+
+/*----------------------------------------------
+custom-radio-2
+----------------------------------------------*/
+
+ul.extraUl li label p {
+    display: flex;
+    align-items: center;
+}
+
+.itemPopupModal .modal-header {
+    padding: 10px;
+}
+
+.itemPopupModal .modal-header h5 {
+    font-size: 1rem;
+}
+
+.itemPopupModal .modal-header .close {
+    color: red;
+}
+
+.extraHeadingTop {
+    padding-bottom: 6px;
+}
+
+
+label.custom-checkbox.extraLabel {
+    justify-content: flex-start;
+}
+
+.increaseDecrease {
+    display: flex;
+    flex-direction: row;
+    width: 95px;
+}
+
+.increaseDecrease input {
+    width: 30px;
+    text-align: center;
+}
+
+.increaseDecrease a {
+    height: 25px;
+    width: 25px;
+    background: #eee;
+    border-radius: 50%;
+    text-align: center;
+    flex: 0 0 25px;
+    display: flex;
+    justify-content: center;
+    line-height: 24px;
+}
+
+li.extraLabel {
+    display: flex;
+    align-items: center;
+}
+
+span.checkboxSection {
+    display: flex;
+    align-items: center;
+}
+
+label.custom-checkbox.checkBoxArea {
+    width: 100%;
+}
+
+.increaseDecrease a:hover {
+    color: #fff !important;
+    transition: all .3s ease-in-out;
+}
+
+.prevent-default {
+    pointer-events: none;
+    appearance: none;
+}
+
+.itemImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.posModal .singleItem {
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    margin-bottom: 0px;
+    padding: 0;
+}
+
+.itemImg {
+    max-height: 450px;
+    overflow: hidden;
+}
+
+#item_details .variantPrice {
+    color: #fff;
+}
+
+.itemVariantArea .variantPrice {
+    color: #4e54c8 !important;
+}
+
+.sliderImgThumb ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 7px;
+    justify-content: center;
+}
+
+.sliderImgThumb ul li {
+    height: 40px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.sliderImgThumb ul li img {
+    border: 2px solid #eee;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .3rem;
+    opacity: .8;
+}
+
+.sliderImgThumb {
+    position: relative;
+    max-height: 100px;
+    margin-bottom: 10px;
+}
+
+li.Sliderthumb.active img {
+    border-color: var(--color);
+    opacity: 1;
+}
+
+.item__slider {
+    max-height: 350px;
+    min-height: 300px;
+    width: 100%;
+    padding: 0;
+}
+
+.item__slider img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+ul.allergenImage li {
+    text-wrap: nowrap;
+}
+
+ul.allergenImage {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+ul.allergenImage li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+ul.allergenImage li img {
+    --orientation: 25px;
+    height: var(--orientation);
+    width: var(--orientation);
+    border-radius: 5px;
+    object-fit: cover;
+    flex: auto;
+    margin-right: 0;
+    box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+label.variant-btn {
+    text-wrap: nowrap;
+}
+
+.theme-light .modalIncreateArea span {
+    background: #b2b2b2;
+    color: #000;
+}
+
+.theme-light .modalIncreateArea input {
+    background: transparent;
+    color: var(--color);
+    border: 0 !important;
+}
+
+@media only screen and (max-width: 767px) {
+    ul.extraUl li {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+}

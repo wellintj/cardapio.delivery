@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Order Tracking Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="frontend/css/mobile-order-tracking.css">
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .test-header {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .test-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Additional test styles for status badge positioning */
+        @media screen and (max-width: 767px) {
+            .test-status-demo {
+                background: #fff3cd;
+                border: 1px solid #ffeaa7;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+
+            .test-status-demo h5 {
+                color: #856404;
+                margin-bottom: 10px;
+            }
+
+            .test-status-demo p {
+                color: #856404;
+                margin-bottom: 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>Mobile Order Tracking Test</h1>
+        <p>Resize your browser or view on mobile to test responsiveness</p>
+    </div>
+
+    <div class="container">
+        <div class="test-info">
+            <h4>Test Instructions:</h4>
+            <ul>
+                <li>View this page on mobile devices (phones and tablets)</li>
+                <li>Check that the table transforms into card layout on screens ≤ 767px</li>
+                <li>Verify that horizontal scrolling is eliminated</li>
+                <li>Ensure all order information remains accessible and readable</li>
+                <li>Test touch interactions and button accessibility</li>
+            </ul>
+        </div>
+
+        <div class="track_order_section">
+            <div class="container single_track_page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single_track bg-gray">
+                            <div class="card bg-gray">
+                                <h5 class="card-header">
+                                    <a href="javascript:;" class="back_icon"><i class="fa fa-arrow-left"></i></a>
+                                    Order List
+                                </h5>
+                                <div class="card-body">
+                                    <div class="single_track_list">
+                                        <div class="table-responsive responsiveTable">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>SL</th>
+                                                        <th>Order ID</th>
+                                                        <th>Phone</th>
+                                                        <th>Qty</th>
+                                                        <th>Total Price</th>
+                                                        <th>Order Date</th>
+                                                        <th>Order Type</th>
+                                                        <th>Status</th>
+                                                        <th>Details</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td data-label="SL">1</td>
+                                                        <td data-label="Order ID"># 25091022</td>
+                                                        <td data-label="Phone">5596484062559</td>
+                                                        <td data-label="Qty">1</td>
+                                                        <td data-label="Total Price">R$ 14.50</td>
+                                                        <td data-label="Order Date">
+                                                            <span>04 Set 2025</span>
+                                                            <div>Approved at: 2 hours ago</div>
+                                                        </td>
+                                                        <td data-label="Order Type">
+                                                            <label class="badge badge-info">Delivery</label>
+                                                        </td>
+                                                        <td data-label="Status">
+                                                            <span class="badge badge-success status-badge">
+                                                                <i class="fa fa-check"></i> Completed
+                                                            </span>
+                                                        </td>
+                                                        <td data-label="Details">
+                                                            <a href="#testModal1" data-toggle="modal" class="viewItems">
+                                                                <i class="fa fa-eye"></i> Items
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td data-label="SL">2</td>
+                                                        <td data-label="Order ID"># 25091021</td>
+                                                        <td data-label="Phone">5596484062558</td>
+                                                        <td data-label="Qty">2</td>
+                                                        <td data-label="Total Price">R$ 28.90</td>
+                                                        <td data-label="Order Date">
+                                                            <span>03 Set 2025</span>
+                                                            <div>Completed at: 1 day ago</div>
+                                                        </td>
+                                                        <td data-label="Order Type">
+                                                            <label class="badge badge-primary">Pickup</label>
+                                                        </td>
+                                                        <td data-label="Status">
+                                                            <span class="badge badge-primary status-badge">
+                                                                <i class="fa fa-clock-o"></i> Pendente
+                                                            </span>
+                                                        </td>
+                                                        <td data-label="Details">
+                                                            <a href="#" class="viewItems">
+                                                                <i class="fa fa-eye"></i> Items
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td data-label="SL">3</td>
+                                                        <td data-label="Order ID"># 25091020</td>
+                                                        <td data-label="Phone">5596484062557</td>
+                                                        <td data-label="Qty">3</td>
+                                                        <td data-label="Total Price">R$ 45.75</td>
+                                                        <td data-label="Order Date">
+                                                            <span>02 Set 2025</span>
+                                                            <div>Cancelled at: 2 days ago</div>
+                                                        </td>
+                                                        <td data-label="Order Type">
+                                                            <label class="badge badge-info">Delivery</label>
+                                                        </td>
+                                                        <td data-label="Status">
+                                                            <span class="badge badge-danger status-badge">
+                                                                <i class="fa fa-times"></i> Cancelled
+                                                            </span>
+                                                        </td>
+                                                        <td data-label="Details">
+                                                            <a href="#" class="viewItems">
+                                                                <i class="fa fa-eye"></i> Items
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="seemore_order text-center">
+                                                <a href="#" class="viewItems">
+                                                    You have more (5) orders. <u>Click here</u>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-status-demo">
+            <h5>Status Badge Positioning Fix</h5>
+            <p><strong>Issue Fixed:</strong> Status badges were overlapping with their labels on mobile</p>
+            <p><strong>Solution:</strong> Improved CSS positioning ensures proper spacing between labels and badges</p>
+            <p><strong>Test:</strong> Check that "Status" labels don't overlap with badges like "Pending", "Completed", etc.</p>
+        </div>
+
+        <div class="test-info">
+            <h4>Expected Mobile Behavior:</h4>
+            <ul>
+                <li><strong>≤ 767px:</strong> Table should transform into card-based layout</li>
+                <li><strong>No horizontal scroll:</strong> All content should fit within screen width</li>
+                <li><strong>Card styling:</strong> Each order should appear as a separate card with rounded corners and shadow</li>
+                <li><strong>Label positioning:</strong> Field labels should appear on the left, values on the right</li>
+                <li><strong>Status badges:</strong> Should appear properly aligned to the right without overlapping labels</li>
+                <li><strong>Touch-friendly:</strong> Buttons should be at least 44px in height/width</li>
+                <li><strong>Typography:</strong> Order IDs should be red, prices green, status badges colorful</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Add mobile detection info
+            const isMobile = window.innerWidth <= 767;
+            const testInfo = $('.test-info').first();
+            testInfo.prepend(`
+                <div class="alert alert-${isMobile ? 'success' : 'info'}">
+                    <strong>Current viewport:</strong> ${window.innerWidth}px × ${window.innerHeight}px<br>
+                    <strong>Mobile mode:</strong> ${isMobile ? 'YES' : 'NO'} (≤ 767px)
+                </div>
+            `);
+
+            // Add resize listener
+            $(window).on('resize', function() {
+                const newIsMobile = window.innerWidth <= 767;
+                $('.alert').first().html(`
+                    <strong>Current viewport:</strong> ${window.innerWidth}px × ${window.innerHeight}px<br>
+                    <strong>Mobile mode:</strong> ${newIsMobile ? 'YES' : 'NO'} (≤ 767px)
+                `).removeClass('alert-info alert-success').addClass(newIsMobile ? 'alert-success' : 'alert-info');
+            });
+        });
+    </script>
+
+    <!-- Test Modal for demonstrating text contrast fix -->
+    <div class="modal fade" id="testModal1" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Numero do pedido #25091022</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive responsiveTable">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Image</th>
+                                    <th>Item Name</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="SL">1</td>
+                                    <td data-label="Image">
+                                        <img src="https://via.placeholder.com/50x50" alt="Item" style="width: 50px; height: 50px;">
+                                    </td>
+                                    <td data-label="Item Name">
+                                        Pizza de Chocolate e Morango
+                                        <div>Size: Medium</div>
+                                    </td>
+                                    <td data-label="Qty">1 x R$ 24.50</td>
+                                    <td data-label="Total">R$ 24.50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <h6>Resumo do Pedido</h6>
+                        <p><strong>Numero do pedido:</strong> #25091022</p>
+                        <p><strong>Subtotal:</strong> R$ 24.50</p>
+                        <p><strong>Taxa de Entrega:</strong> R$ 5.00</p>
+                        <p><strong>Total:</strong> R$ 29.50</p>
+                        <div style="margin-top: 10px; color: #333;">
+                            <span>Status: </span><span class="badge badge-primary">Pendente</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Repeat Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

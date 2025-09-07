@@ -1,0 +1,404 @@
+ .colspan-null {
+     display: table-cell;
+     width: auto;
+ }
+
+ .colspan-data {
+     display: table-cell;
+     width: auto;
+ }
+
+ @media screen and (max-width: 767px) {
+     .responsiveTable.table-responsive {
+         display: block;
+         width: 100%;
+         overflow-x: hidden !important;
+         -webkit-overflow-scrolling: touch;
+     }
+
+     .responsiveTable .table thead th,
+     .responsiveTable .table td,
+     .responsiveTable .table th {
+         white-space: normal;
+     }
+
+     .responsiveTable .table tbody tr {
+         margin-bottom: 1.5rem;
+         border-radius: .5rem;
+         padding: 15px;
+         background: #fff;
+         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+         border: 1px solid var(--border-color, #e9ecef);
+     }
+
+     .responsiveTable .table thead,
+     .responsiveTable .table tbody,
+     .responsiveTable .table th,
+     .responsiveTable .table td,
+     .responsiveTable .table tr {
+         display: block;
+     }
+
+     .responsiveTable .table thead tr {
+         position: absolute;
+         top: -9999px;
+         left: -9999px;
+     }
+
+     .responsiveTable .table td:last-child {
+         border: 0;
+         margin-bottom: 0;
+     }
+
+     .responsiveTable .table td {
+         display: flex;
+         align-items: flex-start;
+         justify-content: space-between;
+         flex-wrap: wrap;
+         text-wrap: wrap;
+         gap: 10px;
+         min-height: 40px;
+     }
+
+     .responsiveTable .table tr {
+         border: 1px solid var(--border-color, #e9ecef);
+         background: #fff;
+     }
+
+     .responsiveTable .table td {
+         border: none;
+         border-bottom: 1px solid var(--border-color, #f3f5f9);
+         position: relative;
+         padding: 12px 15px 12px 50%;
+         margin-bottom: 8px;
+     }
+
+     .responsiveTable .table td:before {
+         position: absolute;
+         top: 12px;
+         left: 15px;
+         width: 45%;
+         padding-right: 10px;
+         white-space: nowrap;
+         content: attr(data-label);
+         font-weight: 600;
+         color: #6c757d;
+         font-size: 0.875rem;
+         text-transform: uppercase;
+         letter-spacing: 0.5px;
+     }
+
+     .responsiveTable .table td div {
+         display: flex;
+         align-items: center;
+         flex-wrap: wrap;
+         text-wrap: wrap;
+         width: 100%;
+     }
+
+     .responsiveTable .table td a {
+         text-wrap: wrap;
+         word-break: break-word;
+     }
+
+     .responsiveTable .table td .badge {
+         font-size: 0.75rem;
+         padding: 4px 8px;
+         white-space: nowrap;
+     }
+
+     .viewItems {
+         font-size: 1rem !important;
+         padding: 8px 12px;
+         border-radius: 4px;
+         background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+         color: white !important;
+         text-decoration: none;
+         display: inline-block;
+         margin-top: 5px;
+         border: none;
+         box-shadow: 0 2px 4px rgba(139,92,246,0.3);
+         transition: all 0.3s ease;
+     }
+
+     .viewItems:hover {
+         background: linear-gradient(135deg, #7c3aed, #6d28d9);
+         color: white !important;
+         transform: translateY(-1px);
+         box-shadow: 0 4px 8px rgba(139,92,246,0.4);
+     }
+
+     td.text-center {
+         text-align: inherit !important;
+     }
+
+     .colspan-null {
+         display: none;
+         padding-left: 0 !important;
+     }
+
+     .colspan-data {
+         display: block;
+         width: 100%;
+         box-sizing: border-box;
+         padding-left: 0 !important;
+     }
+
+     .colspan-data .bottomPrice {
+         display: flex;
+         flex-direction: column;
+         width: 100%;
+         gap: 8px;
+     }
+
+     .colspan-data .bottomPrice p,
+     .colspan-data .bottomPrice h4 {
+         width: 100%;
+         margin: 0;
+         padding: 4px 0;
+     }
+
+     td.actionTd .btn-group {
+         gap: 10px;
+         flex-direction: column;
+         width: 100%;
+     }
+
+     .sm-pl-0 {
+         padding-left: 0 !important;
+     }
+
+     .sm-mt-10 {
+         margin-top: 10px !important;
+     }
+
+     .responsiveTable .table td.action {
+         display: flex;
+         align-items: center;
+         justify-content: flex-end !important;
+         flex-wrap: wrap;
+         gap: 10px;
+         padding-left: 15px !important;
+     }
+
+     .p-sm-0 {
+         padding: 0;
+     }
+
+     .sm-column-reverse {
+         flex-direction: column-reverse;
+     }
+
+     /* Enhanced mobile styles for order tracking */
+     .responsiveTable .table td[data-label*="order_id"],
+     .responsiveTable .table td[data-label*="Order ID"] {
+         font-weight: 600;
+         color: #dc3545;
+         font-size: 1.1rem;
+     }
+
+     .responsiveTable .table td[data-label*="status"],
+     .responsiveTable .table td[data-label*="Status"] {
+         padding-left: 50% !important;
+         padding-top: 12px !important;
+         padding-bottom: 12px !important;
+         min-height: 48px !important;
+         align-items: center !important;
+         display: flex !important;
+         justify-content: flex-start !important;
+     }
+
+     .responsiveTable .table td[data-label*="status"]:before,
+     .responsiveTable .table td[data-label*="Status"]:before {
+         top: 50% !important;
+         left: 15px !important;
+         transform: translateY(-50%) !important;
+         position: absolute;
+         width: 30% !important;
+     }
+
+     .responsiveTable .table td[data-label*="status"] .badge,
+     .responsiveTable .table td[data-label*="Status"] .badge {
+         margin: 0;
+         font-size: 0.8rem;
+         padding: 6px 10px;
+         display: inline-block;
+         width: auto;
+         text-align: center;
+         background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+         color: white;
+         border: none;
+         position: relative;
+         left: 0;
+     }
+
+     .responsiveTable .table td[data-label*="status"] > *,
+     .responsiveTable .table td[data-label*="Status"] > * {
+         display: inline-flex;
+         align-items: center;
+         justify-content: flex-start;
+         flex-wrap: nowrap;
+         gap: 8px;
+         width: auto;
+         margin: 0;
+     }
+
+     /* Fix for complex status content with multiple elements */
+     .responsiveTable .table td[data-label*="status"] .d_flex_center,
+     .responsiveTable .table td[data-label*="Status"] .d_flex_center {
+         display: inline-flex !important;
+         align-items: center !important;
+         justify-content: flex-start !important;
+         gap: 8px !important;
+         width: auto !important;
+     }
+
+     /* Improve spacing for mobile */
+     .single_track_page .container {
+         padding: 10px;
+     }
+
+     .track_order_section {
+         padding: 20px 0;
+     }
+     .sm-mb-15{
+        margin-bottom: 15px !important;
+     }
+
+     .sm-text-center{
+        text-align: center !important;
+     }
+
+     .sm-text-left{
+        text-align: left !important;
+     }
+
+     .sm-text-right{
+        text-align: right !important;
+     }
+
+     .sm-d-none{
+        display: none !important;
+     }
+
+     /* Additional mobile improvements */
+     .responsiveTable .table td[data-label*="phone"],
+     .responsiveTable .table td[data-label*="Phone"] {
+         word-break: break-all;
+         font-family: monospace;
+     }
+
+     .responsiveTable .table td[data-label*="date"],
+     .responsiveTable .table td[data-label*="Date"] {
+         font-size: 0.9rem;
+         line-height: 1.4;
+     }
+
+     .responsiveTable .table td[data-label*="price"],
+     .responsiveTable .table td[data-label*="Price"],
+     .responsiveTable .table td[data-label*="total"],
+     .responsiveTable .table td[data-label*="Total"] {
+         font-weight: 600;
+         color: #28a745;
+         font-size: 1.05rem;
+     }
+
+     /* Improve modal responsiveness */
+     .modal-dialog {
+         margin: 10px;
+         max-width: calc(100vw - 20px);
+     }
+
+     .modal-body .responsiveTable {
+         font-size: 0.9rem;
+     }
+
+     /* Fix pagination on mobile */
+     .ci-paginationArea {
+         padding: 20px 10px;
+         text-align: center;
+     }
+
+     .ci-pagination-link {
+         overflow-x: auto;
+         -webkit-overflow-scrolling: touch;
+     }
+
+     /* Modal text contrast fixes */
+     .modal-content {
+         background: white !important;
+         color: #333 !important;
+     }
+
+     .modal-body {
+         background: white !important;
+         color: #333 !important;
+     }
+
+     .modal-body * {
+         color: #333 !important;
+     }
+
+     .modal-body .table {
+         background: white !important;
+         color: #333 !important;
+     }
+
+     .modal-body .table td,
+     .modal-body .table th {
+         background: white !important;
+         color: #333 !important;
+     }
+
+     .modal-body .table td:before {
+         color: #6c757d !important;
+     }
+
+     .modal-header {
+         background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+         color: white !important;
+     }
+
+     .modal-header * {
+         color: white !important;
+     }
+
+     .modal-title {
+         color: white !important;
+     }
+
+     .modal-footer .btn-primary {
+         background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+         border: none !important;
+         color: white !important;
+     }
+
+     /* Specific fix for order number text */
+     .modal-body h5,
+     .modal-body h6,
+     .modal-body p,
+     .modal-body span,
+     .modal-body div {
+         color: #333 !important;
+     }
+
+     /* Fix for any text elements that might inherit white color */
+     .modal-body .text-white {
+         color: #333 !important;
+     }
+ }
+
+ .pt-5 {
+     padding-top: 10px !important;
+ }
+
+ .table tr td .viewItems {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-wrap: wrap;
+ }
+
+ .text-wrap-wrap {
+     text-wrap: wrap;
+ }

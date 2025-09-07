@@ -1,0 +1,502 @@
+/* Mobile Order Tracking Enhancements */
+/* This file provides additional mobile-specific improvements for order tracking pages */
+
+@media screen and (max-width: 767px) {
+    /* Container and layout improvements */
+    .track_order_section {
+        padding: 10px 0;
+        background: #f8f9fa;
+    }
+
+    .single_track_page .container {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+
+    /* Card styling improvements */
+    .single_track .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin: 10px 0;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        color: white;
+        padding: 20px;
+        border-bottom: none;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .card-header .back_icon {
+        background: rgba(255,255,255,0.2);
+        color: white;
+        padding: 8px;
+        border-radius: 6px;
+        margin-right: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+    }
+
+    .card-header .back_icon:hover {
+        background: rgba(255,255,255,0.3);
+        color: white;
+    }
+
+    /* Enhanced responsive table styling */
+    .responsiveTable .table tbody tr {
+        background: white;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .responsiveTable .table tbody tr::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #007bff, #0056b3);
+    }
+
+    .responsiveTable .table td {
+        padding: 12px 20px 12px 55%;
+        border-bottom: 1px solid #f1f3f4;
+        margin-bottom: 0;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+    }
+
+    .responsiveTable .table td:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .responsiveTable .table td:before {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        width: 30%;
+        font-weight: 600;
+        color: #495057;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        content: attr(data-label);
+        white-space: nowrap;
+    }
+
+    /* Specific styling for different data types */
+    .responsiveTable .table td[data-label*="order_id"],
+    .responsiveTable .table td[data-label*="Order ID"] {
+        font-weight: 700;
+        color: #dc3545;
+        font-size: 1.1rem;
+        font-family: 'Courier New', monospace;
+    }
+
+    .responsiveTable .table td[data-label*="phone"],
+    .responsiveTable .table td[data-label*="Phone"] {
+        font-family: 'Courier New', monospace;
+        font-size: 0.95rem;
+        color: #6c757d;
+        word-break: break-all;
+    }
+
+    .responsiveTable .table td[data-label*="price"],
+    .responsiveTable .table td[data-label*="Price"],
+    .responsiveTable .table td[data-label*="total"],
+    .responsiveTable .table td[data-label*="Total"] {
+        font-weight: 700;
+        color: #28a745;
+        font-size: 1.1rem;
+    }
+
+    .responsiveTable .table td[data-label*="date"],
+    .responsiveTable .table td[data-label*="Date"] {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #6c757d;
+    }
+
+    .responsiveTable .table td[data-label*="status"],
+    .responsiveTable .table td[data-label*="Status"] {
+        padding-left: 50% !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        min-height: 48px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        display: flex !important;
+    }
+
+    .responsiveTable .table td[data-label*="status"]:before,
+    .responsiveTable .table td[data-label*="Status"]:before {
+        top: 50% !important;
+        left: 20px !important;
+        transform: translateY(-50%) !important;
+        width: 30% !important;
+        position: absolute;
+    }
+
+    .responsiveTable .table td[data-label*="status"] > *,
+    .responsiveTable .table td[data-label*="Status"] > * {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+        width: auto;
+        gap: 8px;
+    }
+
+    .responsiveTable .table td[data-label*="status"] .badge,
+    .responsiveTable .table td[data-label*="Status"] .badge {
+        position: relative;
+        left: 0;
+        margin: 0;
+    }
+
+    /* Badge improvements */
+    .responsiveTable .table td .badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 0px;
+        margin-left: 0px;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    /* Specific status badge positioning */
+    .responsiveTable .table td[data-label*="status"] .badge,
+    .responsiveTable .table td[data-label*="Status"] .badge {
+        margin-top: 0px;
+        align-self: flex-end;
+    }
+
+    /* Handle complex status content with multiple elements */
+    .responsiveTable .table td[data-label*="status"] .d_flex_center,
+    .responsiveTable .table td[data-label*="Status"] .d_flex_center {
+        width: 100%;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .badge-primary {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        border: none;
+        color: white;
+    }
+
+    .badge-info {
+        background: linear-gradient(135deg, #a855f7, #9333ea);
+        border: none;
+        color: white;
+    }
+
+    .badge-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        color: white;
+    }
+
+    .badge-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border: none;
+        color: white;
+    }
+
+    /* Action buttons */
+    .viewItems {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: white !important;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(139,92,246,0.3);
+    }
+
+    .viewItems:hover {
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        color: white !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(139,92,246,0.4);
+    }
+
+    /* See more orders section */
+    .seemore_order {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 25px 20px;
+        text-align: center;
+        border-top: 1px solid #dee2e6;
+        margin-top: 15px;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .seemore_order a {
+        color: #8b5cf6;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 1rem;
+        padding: 12px 20px;
+        background: white;
+        border-radius: 8px;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .seemore_order a:hover {
+        background: #8b5cf6;
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(139,92,246,0.3);
+    }
+
+    /* Pagination improvements */
+    .ci-paginationArea {
+        padding: 25px 15px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    .ci-pagination-link {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 0;
+    }
+
+    /* Modal improvements for mobile */
+    .modal-dialog {
+        margin: 15px;
+        max-width: calc(100vw - 30px);
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        background: white;
+        color: #333;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: white;
+        border-radius: 12px 12px 0 0;
+        padding: 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+        background: white !important;
+        color: #333 !important;
+    }
+
+    .modal-body * {
+        color: #333 !important;
+    }
+
+    .modal-body .responsiveTable {
+        font-size: 0.9rem;
+    }
+
+    .modal-body .responsiveTable .table {
+        color: #333 !important;
+        background: white !important;
+    }
+
+    .modal-body .responsiveTable .table td {
+        color: #333 !important;
+        background: white !important;
+    }
+
+    .modal-body .responsiveTable .table td:before {
+        color: #6c757d !important;
+    }
+
+    /* Specific fixes for modal text elements */
+    .modal-body h1, .modal-body h2, .modal-body h3,
+    .modal-body h4, .modal-body h5, .modal-body h6 {
+        color: #333 !important;
+    }
+
+    .modal-body p, .modal-body span, .modal-body div,
+    .modal-body strong, .modal-body b {
+        color: #333 !important;
+    }
+
+    /* Override any white text classes */
+    .modal-body .text-white {
+        color: #333 !important;
+    }
+
+    .modal-footer {
+        padding: 20px;
+        border-top: 1px solid #dee2e6;
+        background: #f8f9fa;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .modal-footer .btn-primary {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        border: none;
+        color: white;
+    }
+
+    .modal-footer .btn-primary:hover {
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    }
+
+    /* Loading and animation improvements */
+    .responsiveTable .table tbody tr {
+        animation: slideInUp 0.3s ease-out;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Improved spacing for form elements */
+    .track_form_area {
+        padding: 0 15px;
+        margin-bottom: 20px;
+    }
+
+    .track_form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .track_form .form-control {
+        padding: 12px 15px;
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+        font-size: 1rem;
+    }
+
+    .track_form .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    }
+
+    /* Better error and success messages */
+    .reg_msg {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    /* Fix for status badges overlapping issue */
+    .responsiveTable .table td[data-label*="status"] .status-badge,
+    .responsiveTable .table td[data-label*="Status"] .status-badge,
+    .responsiveTable .table td[data-label*="status"] .badge,
+    .responsiveTable .table td[data-label*="Status"] .badge {
+        position: relative;
+        z-index: 2;
+        margin-left: auto;
+        margin-right: 0;
+        flex-shrink: 0;
+    }
+
+    /* Ensure status content doesn't overlap with label */
+    .responsiveTable .table td[data-label*="status"] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding-top: 25px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .responsiveTable .table td[data-label*="status"] > * {
+        margin-top: 5px;
+        align-self: flex-end;
+    }
+
+    /* Handle delivery time icon and other status elements */
+    .responsiveTable .table td[data-label*="status"] a[data-toggle="modal"],
+    .responsiveTable .table td[data-label*="Status"] a[data-toggle="modal"] {
+        margin-left: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        min-height: 32px;
+    }
+}
+
+/* Additional improvements for very small screens */
+@media screen and (max-width: 480px) {
+    .responsiveTable .table td {
+        padding: 10px 15px 10px 45%;
+        font-size: 0.9rem;
+    }
+
+    .responsiveTable .table td:before {
+        left: 15px;
+        width: 25%;
+        font-size: 0.8rem;
+    }
+
+    .responsiveTable .table td[data-label*="status"],
+    .responsiveTable .table td[data-label*="Status"] {
+        padding: 15px 15px 15px 35% !important;
+        min-height: 55px !important;
+    }
+
+    .responsiveTable .table td[data-label*="status"]:before,
+    .responsiveTable .table td[data-label*="Status"]:before {
+        left: 15px !important;
+        width: 30% !important;
+        top: 18px !important;
+    }
+
+    .card-header {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+
+    .viewItems {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}

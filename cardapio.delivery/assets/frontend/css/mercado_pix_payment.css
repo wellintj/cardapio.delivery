@@ -1,0 +1,462 @@
+/* PIX Payment Page Styles */
+.pix-payment-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pix-payment-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header Styles */
+.payment-header {
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+.restaurant-info {
+    margin-bottom: 20px;
+}
+
+.restaurant-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #e9ecef;
+}
+
+.restaurant-name {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+}
+
+.payment-method-info h3 {
+    color: #27ae60;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.pix-icon {
+    font-size: 3rem;
+    color: #27ae60;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Payment Status */
+.payment-status {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+}
+
+.payment-status i {
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+.status-pending {
+    color: #f39c12;
+}
+
+.status-approved {
+    color: #27ae60;
+    background: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.status-rejected {
+    color: #e74c3c;
+    background: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Order Summary */
+.order-summary {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.order-summary h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.order-summary h4 i {
+    margin-right: 8px;
+    color: #3498db;
+}
+
+.order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #27ae60;
+}
+
+.item-label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.item-value {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* QR Code Section */
+.qr-code-section {
+    margin-bottom: 25px;
+}
+
+.qr-code-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.qr-code-image {
+    width: 250px;
+    height: 250px;
+    border: 3px solid #27ae60;
+    border-radius: 15px;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.qr-code-overlay.show {
+    opacity: 1;
+}
+
+.qr-code-overlay i {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.qr-code-error {
+    padding: 40px;
+    color: #f39c12;
+}
+
+.qr-code-error i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.qr-instructions h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.qr-instructions h5 i {
+    margin-right: 8px;
+    color: #3498db;
+}
+
+.payment-steps {
+    text-align: left;
+    display: inline-block;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.payment-steps li {
+    margin-bottom: 8px;
+    padding-left: 5px;
+}
+
+/* PIX Code Section */
+.pix-code-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.pix-code-section h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.pix-code-section h5 i {
+    margin-right: 8px;
+    color: #3498db;
+}
+
+.pix-code-container {
+    margin-bottom: 10px;
+}
+
+.pix-code-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.pix-code-input input {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.pix-code-input button {
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-bottom: 25px;
+}
+
+.action-buttons .btn {
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: 600;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons .btn-success {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    border: none;
+}
+
+.action-buttons .btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+}
+
+.action-buttons .btn-outline-info {
+    border: 2px solid #3498db;
+    color: #3498db;
+}
+
+/* Payment Success */
+.payment-success {
+    text-align: center;
+    padding: 40px 20px;
+    animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.success-animation i {
+    font-size: 5rem;
+    color: #27ae60;
+    margin-bottom: 20px;
+    animation: checkmark 0.6s ease-in-out 0.2s both;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.payment-success h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.success-actions {
+    margin-top: 25px;
+}
+
+/* Footer */
+.payment-footer {
+    border-top: 2px solid #f8f9fa;
+    padding-top: 20px;
+    color: #6c757d;
+}
+
+.security-info i {
+    margin-right: 8px;
+}
+
+.support-info a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.support-info a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pix-payment-card {
+        margin: 10px;
+        padding: 20px;
+        border-radius: 15px;
+    }
+    
+    .restaurant-name {
+        font-size: 1.5rem;
+    }
+    
+    .qr-code-image {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .pix-code-input {
+        flex-direction: column;
+    }
+    
+    .pix-code-input button {
+        width: 100%;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .pix-payment-container {
+        padding: 10px 0;
+    }
+    
+    .qr-code-image {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .restaurant-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .pix-icon {
+        font-size: 2.5rem;
+    }
+}
+
+/* Loading Animation */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Countdown Timer */
+#countdown-timer {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#countdown-timer.text-danger {
+    color: #e74c3c !important;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
