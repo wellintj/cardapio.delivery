@@ -412,6 +412,7 @@ class Staff extends MY_Controller
 		$data['user'] = $this->admin_m->get_profile_info($id);
 		$data['shop_id'] = $data['shop']->id;
 		$data['slug'] = $slug;
+		$data['uid'] = $uid;
 		$data['page_title'] = "Customer OrderList";
 		$data['info'] = $this->admin_m->single_select_by_id(auth('customer_id'), 'customer_list');
 		$data['order_info'] = $this->admin_m->single_select_by_uid($uid, 'order_user_list');
@@ -420,6 +421,57 @@ class Staff extends MY_Controller
 		echo json_encode(['st' => 1, 'result' => $load]);
 	}
 
+	// Test method to debug data retrieval
+	public function test_pos_data($slug = null, $uid = null)
+	{
+		$id = get_id_by_slug($slug);
+		if (empty($id) || empty($uid)) {
+			echo json_encode(['error' => 'Missing ID or UID', 'slug' => $slug, 'uid' => $uid]);
+			return;
+		}
+
+		$shop = restaurant($id);
+		$order_info = $this->admin_m->single_select_by_uid($uid, 'order_user_list');
+		$item_list = $this->admin_m->get_customer_order_item_list($shop->id, $uid);
+
+		// Test the __order function
+		$order_calc = __order($order_info, $item_list);
+
+		echo json_encode([
+			'uid' => $uid,
+			'slug' => $slug,
+			'shop_id' => $shop->id,
+			'shop_name' => $shop->name,
+			'order_info' => $order_info,
+			'item_list_count' => count($item_list),
+			'item_list' => array_slice($item_list, 0, 2), // Only first 2 items for brevity
+			'order_calculation' => $order_calc,
+			'has_order_info' => !empty($order_info),
+			'has_items' => !empty($item_list)
+		]);
+	}
+
+	// Simple test to check if pos_invoice template renders correctly
+	public function test_pos_template($slug = null, $uid = null)
+	{
+		$id = get_id_by_slug($slug);
+		if (empty($id) || empty($uid)) {
+			echo "Missing ID or UID";
+			return;
+		}
+
+		$data = [];
+		$data['shop'] = restaurant($id);
+		$data['user'] = $this->admin_m->get_profile_info($id);
+		$data['shop_id'] = $data['shop']->id;
+		$data['slug'] = $slug;
+		$data['uid'] = $uid;
+		$data['order_info'] = $this->admin_m->single_select_by_uid($uid, 'order_user_list');
+		$data['item_list'] = $this->admin_m->get_customer_order_item_list($data['shop_id'], $uid);
+
+		// Load the template directly without JSON encoding
+		$this->load->view('frontend/invoice/pos_invoice', $data);
+	}
 
 	public function change_status($status, $id)
 	{

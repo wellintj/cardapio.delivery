@@ -75,9 +75,10 @@
 		var base_url = $('#base_url').attr('href');
 		var csrf_value = $('#csrf_value').attr('href');
 		var username = '<?= $slug; ?>';
-		var uid = <?= $order_info['uid']; ?>;
+		var lang = '<?= site_lang(); ?>';
+		var uid = '<?= $order_info['uid']; ?>';
 		$(document).on('click', '#pos-print', function() {
-			var url = `${base_url}staff/pos_invoice/${username}/${uid}`;
+			var url = `${base_url}staff/pos_invoice/${username}/${uid}?lang=${lang}`;
 			$.post(url, {
 				'csrf_test_name': csrf_value
 			}, function(json) {

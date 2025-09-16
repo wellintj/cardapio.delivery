@@ -321,9 +321,8 @@
 <?php $shop_id = $shop->id; ?>
 
 <body style="min-height: 50vh;background: #fff;">
-    <div style="width: <?= !empty(pos_config($shop->id)->print_size) ? pos_config($shop->id)->print_size : "70"; ?>mm; margin: 0px auto;" class="pos-container">
+    <div style="width: <?= !empty(pos_config($shop->id)->print_size) ? pos_config($shop->id)->print_size : "58"; ?>mm; margin: 0px auto;" class="pos-container" id="printArea">
         <div class="info">
-
 
             <h2 class="text-center" style="font-size: 1.6rem;"><?= !empty($shop->name) ? $shop->name : $shop->username; ?></h2>
             <p>
@@ -425,7 +424,6 @@
                     <?php endforeach; ?>
                 <?php else : ?>
 
-
                     <?php $p = __order($order_info, $item_list); ?>
                     <?php foreach ($item_list as $key => $row) : ?>
                         <tr style="margin-bottom: 5px;">
@@ -433,10 +431,16 @@
                                 <span>
                                     <?php if ($row['is_package'] == 1) : ?>
                                         <?= $row['package_name']; ?>
-                                        <span style="font-size: 10px; margin-left:5px;">(<?= __taxStatus(shop($shop_id)->is_tax, $row); ?>)</span>
+                                        <?php $tax_status = __taxStatus(shop($shop_id)->is_tax, $row); ?>
+                                        <?php if (!empty($tax_status)): ?>
+                                            <span style="font-size: 10px; margin-left:5px;">(<?= $tax_status; ?>)</span>
+                                        <?php endif; ?>
                                     <?php else : ?>
                                         <?= $row['name']; ?>
-                                        <span style="font-size: 10px; margin-left:5px;">(<?= __taxStatus(shop($shop_id)->is_tax, $row); ?>)</span>
+                                        <?php $tax_status = __taxStatus(shop($shop_id)->is_tax, $row); ?>
+                                        <?php if (!empty($tax_status)): ?>
+                                            <span style="font-size: 10px; margin-left:5px;">(<?= $tax_status; ?>)</span>
+                                        <?php endif; ?>
 
                                         <?php if ($row['is_size'] == 1) : ?>
                                             <span class="badge sizeTag">
@@ -547,9 +551,24 @@
                     <td colspan="1" style="text-align: left;">
                         <p style="margin: 0;"><?= lang('payment_by'); ?></p>
                         <?php if ($order_info['order_type'] == 5 || $order_info['is_payment'] == 1) : ?>
-                            <?= ucfirst($order_info['payment_by']); ?>
+                            <?php
+                            // Translate payment methods to Portuguese
+                            $payment_method = strtolower($order_info['payment_by']);
+                            $payment_translations = [
+                                'cash' => 'Dinheiro',
+                                'cheques' => 'CARTÃO DE DÉBITO',
+                                'bank_transfer' => 'PIX',
+                                'pos' => 'PDV',
+                                'card' => 'Cartão',
+                                'online' => 'Online',
+                                'others' => 'Outro',
+                                'pix' => 'PIX',
+                                'none' => 'Nenhum'
+                            ];
+                            echo isset($payment_translations[$payment_method]) ? $payment_translations[$payment_method] : ucfirst($order_info['payment_by']);
+                            ?>
                         <?php else : ?>
-                            <?= lang('cash'); ?>
+                            Dinheiro
                         <?php endif; ?>
                     </td>
                     <td colspan="2" style="text-align: left;">

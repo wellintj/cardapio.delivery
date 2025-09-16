@@ -182,9 +182,25 @@ if (!function_exists('__order')) {
     function __order($order_info, $item_details)
     {
         $ci = get_instance();
-        if (!empty($order_info) && is_numeric($order_info)) {
+
+        // Convert objects to arrays
+        $order_info = is_object($order_info) ? (array) $order_info : $order_info;
+        $item_details = is_object($item_details) ? (array) $item_details : $item_details;
+
+        if (is_array($item_details)) {
+            foreach ($item_details as $key => $item) {
+                if (is_object($item)) {
+                    $item_details[$key] = (array) $item;
+                }
+            }
+        }
+
+        // Get order info if numeric ID provided
+        if (is_numeric($order_info)) {
             $order_info = $ci->admin_m->single_select_by_uid($order_info, 'order_user_list');
         }
+
+        if (empty($order_info)) return [];
 
         if (!empty($order_info)) {
             $shop_id = $order_info['shop_id'];
