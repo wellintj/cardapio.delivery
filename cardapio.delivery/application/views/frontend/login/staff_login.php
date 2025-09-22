@@ -48,12 +48,11 @@
                                                     <div class="customPhone">
                                                         <div class="ci-input-group">
                                                             <div class="ci-input-group-prepend w-30 text-center">
-                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+</span>
+                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+55</span>
                                                             </div>
-                                                            <div class="ci-input-group-prepend w-50">
-                                                                <input type="text" name="dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>" />
-                                                            </div>
-                                                            <input type="text" name="phone" class="form-control" autocomplete="off" />
+                                                            <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
+                                                            <input type="hidden" name="dial_code" value="55" />
+                                                            <input type="text" name="phone" class="form-control" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678" />
                                                         </div>
                                                     </div>
                                                     <small>*<?= __("use_email_insist_of_phone") ?></small>
@@ -70,12 +69,11 @@
                                                     <div class="customPhone">
                                                         <div class="ci-input-group">
                                                             <div class="ci-input-group-prepend w-30 text-center">
-                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+</span>
+                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+55</span>
                                                             </div>
-                                                            <div class="ci-input-group-prepend w-50">
-                                                                <input type="text" name="dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>" />
-                                                            </div>
-                                                            <input type="text" name="phone" class="form-control" autocomplete="off" />
+                                                            <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
+                                                            <input type="hidden" name="dial_code" value="55" />
+                                                            <input type="text" name="phone" class="form-control" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678" />
                                                         </div>
                                                     </div>
                                                     <small>*<?= __("use_email_insist_of_phone") ?></small>
@@ -90,12 +88,11 @@
                                                     <div class="customPhone">
                                                         <div class="ci-input-group">
                                                             <div class="ci-input-group-prepend w-30 text-center">
-                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+</span>
+                                                                <span class="input-group-text" style="padding: 0.6rem 0;">+55</span>
                                                             </div>
-                                                            <div class="ci-input-group-prepend w-50">
-                                                                <input type="text" name="dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>" />
-                                                            </div>
-                                                            <input type="text" name="phone" class="form-control" autocomplete="off" />
+                                                            <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
+                                                            <input type="hidden" name="dial_code" value="55" />
+                                                            <input type="text" name="phone" class="form-control" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678" />
                                                         </div>
                                                     </div>
                                                 </div>

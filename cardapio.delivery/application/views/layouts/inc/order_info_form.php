@@ -84,6 +84,12 @@
 				font-size: 11px;
 			}
 		}
+
+		/* Error styling for insufficient payment amount */
+		#customer_payment_amount.error {
+			border-color: #d73925;
+			box-shadow: 0 0 0 0.2rem rgba(215, 57, 37, 0.25);
+		}
 	</style>
 	<div class="step_1">
 		<span class="reg_msg"></span>
@@ -96,16 +102,15 @@
 						<input type="text" name="name" class="form-control" placeholder="<?= lang('name'); ?>">
 					</div>
 					<div class="form-group col-md-6">
-						<label for=""><?= lang('phone'); ?> <i class="fa fa-info-circle" data-title="<?= lang('phone_with_international_format') ?>" data-toggle="tooltip"></i> <span class="error">*</span> </label>
+						<label for=""><?= lang('phone'); ?> <span class="error">*</span> </label>
 						<div class="customPhone">
 							<div class="ci-input-group">
 								<div class="ci-input-group-prepend w-30 text-center">
-									<span class="input-group-text" style="padding: .6rem 0;;">+</span>
+									<span class="input-group-text" style="padding: .6rem 0;;">+55</span>
 								</div>
-								<div class="ci-input-group-prepend  w-50">
-									<input type="text" name="dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>">
-								</div>
-								<input type="text" name="phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="XX 9 XXXX XXXX">
+								<!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
+								<input type="hidden" name="dial_code" value="55">
+								<input type="text" name="phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="11 9 1234 5678" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
 							</div>
 						</div>
 
@@ -319,12 +324,11 @@
 						<div class="customPhone">
 							<div class="ci-input-group">
 								<div class="ci-input-group-prepend w-30 text-center">
-									<span class="input-group-text" style="padding: .6rem 0;;">+</span>
+									<span class="input-group-text" style="padding: .6rem 0;;">+55</span>
 								</div>
-								<div class="ci-input-group-prepend  w-50">
-									<input type="text" name="cod_dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>">
-								</div>
-								<input type="text" name="cod_phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="XX 9 XXXX XXXX">
+								<!-- Hidden cod_dial_code field - automatically set to 55 (Brazil) -->
+								<input type="hidden" name="cod_dial_code" value="55">
+								<input type="text" name="cod_phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="11 9 1234 5678" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
 							</div>
 						</div>
 
@@ -360,12 +364,11 @@
 					<div class="customPhone">
 						<div class="ci-input-group">
 							<div class="ci-input-group-prepend w-30 text-center">
-								<span class="input-group-text" style="padding: .6rem 0;;">+</span>
+								<span class="input-group-text" style="padding: .6rem 0;;">+55</span>
 							</div>
-							<div class="ci-input-group-prepend  w-50">
-								<input type="text" name="cod_dial_code" class="form-control border-radius-0 group-color only_number" value="<?= ltrim($dial_code, '+'); ?>">
-							</div>
-							<input type="text" name="cod_phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="XX 9 XXXX XXXX">
+							<!-- Hidden cod_dial_code field - automatically set to 55 (Brazil) -->
+							<input type="hidden" name="cod_dial_code" value="55">
+							<input type="text" name="cod_phone" class="form-control remove_char only_number" autocomplete="off" data-char="+" placeholder="11 9 1234 5678" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
 						</div>
 					</div>
 
@@ -401,7 +404,13 @@
 					<div class="form-group col-md-6">
 						<label class="custom-checkbox"><b><input type="checkbox" name="is_change" class="is_change" value="1"> <?= lang('i_need_change'); ?></b></label>
 						<div class="change_field mt-10 dis_none">
-							<input type="text" name="change_amount" id="change_amount" class="form-control" placeholder="<?= lang('change'); ?>">
+							<div class="row">
+								<div class="col-md-12">
+									<label for="customer_payment_amount"><strong><?= lang('change_value'); ?>:</strong></label>
+									<input type="number" name="customer_payment_amount" id="customer_payment_amount" class="form-control" placeholder="<?= lang('change_value'); ?>" step="0.01" min="0">
+									<small class="text-muted"><?= lang('enter_customer_payment_amount'); ?></small>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -670,7 +679,22 @@
 				$('.changeInfo').slideUp();
 				$('[name="is_change"]').prop('checked', false);
 				$('.change_field').slideUp();
-				$('[name="change_amount"]').val('');
+				$('[name="customer_payment_amount"]').val('');
+			}
+		});
+
+		// Simple validation for customer payment amount
+		$(document).on('input', '#customer_payment_amount', function() {
+			var customerAmount = parseFloat($(this).val()) || 0;
+			var orderTotal = parseFloat($('.grandTotal').text().replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+
+			// Basic validation - ensure customer amount is sufficient
+			if (customerAmount > 0 && orderTotal > 0 && customerAmount < orderTotal) {
+				$(this).addClass('error');
+				$(this).attr('title', '<?= lang("customer_payment_insufficient"); ?>');
+			} else {
+				$(this).removeClass('error');
+				$(this).removeAttr('title');
 			}
 		});
 
@@ -688,7 +712,7 @@
 				$('.changeInfo').slideUp();
 				$('[name="is_change"]').prop('checked', false);
 				$('.change_field').slideUp();
-				$('[name="change_amount"]').val('');
+				$('[name="customer_payment_amount"]').val('');
 			}
 		});
 
@@ -707,12 +731,29 @@
 					return false;
 				}
 
-				// If cash is selected and change is needed, validate change amount
+				// If cash is selected and change is needed, validate customer payment amount
 				if (deliveryPaymentMethod == 'cash' && $('[name="is_change"]').is(':checked')) {
-					var changeAmount = $('[name="change_amount"]').val();
-					if (!changeAmount || parseFloat(changeAmount) <= 0) {
-						alert('<?= lang("change_for_amount"); ?>');
-						$('[name="change_amount"]').focus();
+					var customerPaymentAmount = $('[name="customer_payment_amount"]').val();
+					var orderTotal = parseFloat($('.grandTotal').text().replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+
+					if (!customerPaymentAmount || parseFloat(customerPaymentAmount) <= 0) {
+						alert('<?= lang("enter_customer_payment_amount"); ?>');
+						$('[name="customer_payment_amount"]').focus();
+						e.preventDefault();
+						return false;
+					}
+
+					if (parseFloat(customerPaymentAmount) < orderTotal) {
+						alert('<?= lang("customer_payment_insufficient"); ?>');
+						$('[name="customer_payment_amount"]').focus();
+						e.preventDefault();
+						return false;
+					}
+
+					var orderTotal = parseFloat($('.grandTotal').text().replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+					if (parseFloat(customerPaymentAmount) < orderTotal) {
+						alert('<?= lang("customer_payment_insufficient"); ?>');
+						$('[name="customer_payment_amount"]').focus();
 						e.preventDefault();
 						return false;
 					}
