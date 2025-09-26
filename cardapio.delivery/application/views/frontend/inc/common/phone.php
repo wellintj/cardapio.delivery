@@ -15,6 +15,6 @@ $cphone = isset($phone) ? $phone : auth('phone', 'customer_info');
         </div>
         <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
         <input type="hidden" name="dial_code" value="55">
-        <input type="text" name="phone" class="form-control only_number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g,'')" value="<?= $cphone ?? ''; ?>" placeholder="11 9 1234 5678" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+        <input type="text" name="phone" class="form-control only_number" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g,'')" value="<?= $cphone ?? ''; ?>" placeholder="00 0 0000 0000" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
     </div>
 </div>

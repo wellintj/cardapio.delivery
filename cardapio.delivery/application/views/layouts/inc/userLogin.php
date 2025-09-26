@@ -60,7 +60,7 @@
                                 </div>
                                 <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
                                 <input type="hidden" name="dial_code" value="55">
-                                <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678">
+                                <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="00 0 0000 0000">
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                     </div>
                                     <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
                                     <input type="hidden" name="dial_code" value="55">
-                                    <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678">
+                                    <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="00 0 0000 0000">
                                 </div>
                             </div>
                             <small>*<?= __("use_email_insist_of_phone") ?></small>
@@ -142,7 +142,7 @@
                                     </div>
                                     <!-- Hidden dial_code field - automatically set to 55 (Brazil) -->
                                     <input type="hidden" name="dial_code" value="55">
-                                    <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="11 9 1234 5678">
+                                    <input type="text" name="phone" class="form-control only_number" autocomplete="off" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" placeholder="00 0 0000 0000">
                                 </div>
                             </div>
                         </div>
