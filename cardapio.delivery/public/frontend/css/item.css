@@ -343,7 +343,32 @@ label.custom-checkbox.checkBoxArea {
 }
 
 #item_details .variantPrice {
-    color: #fff;
+    color: #fff !important;
+}
+
+/* Ensure variant buttons have white text when active */
+#item_details .variant-btn.active .variantPrice {
+    color: #fff !important;
+}
+
+/* Ensure all text in active variant buttons is white */
+#item_details .variant-btn.active {
+    color: #fff !important;
+}
+
+/* Override priceGroup span color for active variant buttons in item details */
+#item_details .variant-btn.active .priceGroup > span {
+    color: #fff !important;
+}
+
+/* Ensure non-active variant buttons also have proper text color */
+#item_details .variant-btn {
+    color: var(--color);
+}
+
+/* Ensure non-active variant buttons price text is visible */
+#item_details .variant-btn .priceGroup > span {
+    color: var(--color);
 }
 
 .itemVariantArea .variantPrice {
