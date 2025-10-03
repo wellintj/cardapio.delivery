@@ -201,11 +201,58 @@
                                     <label class="label success-light"><?= lang('paid'); ?></label>
                                     <?php if (!empty($row['payment_by'])) : ?>
                                         <div class="mt-2">
-                                            <small><?= lang($row['payment_by']); ?></small>
+                                            <?php
+                                            // Definir ícones e labels para métodos PIX
+                                            $pix_methods = [
+                                                'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX (MP)'],
+                                                'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)'],
+                                                'offline' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)']
+                                            ];
+
+                                            if (array_key_exists($row['payment_by'], $pix_methods)) {
+                                                $method = $pix_methods[$row['payment_by']];
+                                                ?>
+                                                <div class="pix-payment-info">
+                                                    <img src="<?= base_url('imagens_para_checkout/' . $method['icon']); ?>" alt="<?= $method['label']; ?>" width="16" height="16" style="width: 16px !important; height: 16px !important; vertical-align: middle; margin-right: 5px;">
+                                                    <small><?= $method['label']; ?></small>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <small><?= lang($row['payment_by']); ?></small>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     <?php endif; ?>
                                 <?php else : ?>
                                     <label class="label danger-light"><?= lang('unpaid'); ?></label>
+                                    <?php if (!empty($row['payment_by'])) : ?>
+                                        <div class="mt-2">
+                                            <?php
+                                            // Mostrar método de pagamento mesmo quando não pago
+                                            $pix_methods = [
+                                                'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX (MP)'],
+                                                'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)'],
+                                                'offline' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)']
+                                            ];
+
+                                            if (array_key_exists($row['payment_by'], $pix_methods)) {
+                                                $method = $pix_methods[$row['payment_by']];
+                                                ?>
+                                                <div class="pix-payment-info">
+                                                    <img src="<?= base_url('imagens_para_checkout/' . $method['icon']); ?>" alt="<?= $method['label']; ?>" width="16" height="16" style="width: 16px !important; height: 16px !important; vertical-align: middle; margin-right: 5px;">
+                                                    <small><?= $method['label']; ?></small>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <small><?= lang($row['payment_by']); ?></small>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </td>

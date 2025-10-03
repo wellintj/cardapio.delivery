@@ -494,7 +494,7 @@
                     <div class="row mb-20">
                         <div class="col-md-12">
                             <fieldset class="soft-bg">
-                                <legend><?= __('checkout_login'); ?></legend>
+                                <legend><?= !empty(lang('checkout_login')) ? lang('checkout_login') : 'Checkout login'; ?></legend>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="custom-control  orderConfig custom-switch prefrence-item ml-10">
@@ -526,19 +526,37 @@
                                         </div><!-- custom-control -->
                                     </div>
 
+                                    <?php $guestFields = isset($guest->guest_fields) && isJson($guest->guest_fields) ? json_decode($guest->guest_fields) : ''; ?>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><?= !empty(lang('guest_login_required_fields')) ? lang('guest_login_required_fields') : 'Guest login required fields'; ?></label>
+                                            <div class="mt-10 d-flex gap-20">
+                                                <label class="custom-checkbox"><input type="checkbox" name="guest_fields[name]" value="1" <?= isset($guestFields->name) && $guestFields->name == 1 ? "checked" : ""; ?>> <?= !empty(lang('name')) ? lang('name') : 'Name'; ?></label>
+
+                                                <label class="custom-checkbox"><input type="checkbox" name="guest_fields[phone]" value="1" <?= isset($guestFields->phone) && $guestFields->phone == 1 ? "checked" : ""; ?>> <?= !empty(lang('phone')) ? lang('phone') : 'Phone'; ?></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+
                                     <div class="col-md-12 mt-20">
-
+                                        <label class="mb-10"><?= __('login'); ?></label>
                                         <div class="loginType">
-                                            <label class="custom-radio label bg-danger-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="0" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 0 ? "checked" : ""; ?> checked><?= lang('off'); ?></label>
+                                            <label class="custom-radio label bg-danger-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="0" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 0 ? "checked" : ""; ?>> <?= lang('off'); ?></label>
 
-                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="1" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 1 ? "checked" : ""; ?> checked><?= lang('system_based'); ?></label>
+                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="1" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 1 ? "checked" : ""; ?>> <?= lang('system_based'); ?></label>
 
-                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="2" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 2 ? "checked" : ""; ?>><?= lang('email_otp'); ?></label>
+                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="2" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 2 ? "checked" : ""; ?>> <?= lang('email_otp'); ?></label>
 
-                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="3" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 3 ? "checked" : ""; ?>><?= lang('sms_otp'); ?></label>
+                                            <label class="custom-radio label bg-info-soft p-7 pl-10"><input type="radio" name="is_customer_login" value="3" <?= isset(restaurant()->is_customer_login) && restaurant()->is_customer_login == 3 ? "checked" : ""; ?>> <?= lang('sms_otp'); ?></label>
 
                                         </div>
                                     </div>
+
                                 </div>
                             </fieldset>
                         </div>

@@ -250,3 +250,7 @@ function check_site_domain($url)
 		return ['is_subdomain' => 0, 'is_domain' => 0, 'is_folder' => 1, 'url' => $path];
 	}
 }
+
+// Rota temporária para correções do sistema de troco
+$route['fix-translations'] = 'fix_translations';
+$route['fix-translations/test'] = 'fix_translations/test_translations';

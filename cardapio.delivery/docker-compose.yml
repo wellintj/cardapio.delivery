@@ -30,8 +30,6 @@ services:
       MYSQL_ROOT_HOST: '%'
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./cardapio.delivery-db_20250510_130856.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ./docker/mysql-init.sql:/docker-entrypoint-initdb.d/02-create-user.sql
       - ./docker/mysql-config.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - cardapio-network

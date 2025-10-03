@@ -48,6 +48,26 @@
 					</div>
 				</div>
 			</div>
+			<!-- PIX Mutual Exclusion Messages -->
+			<?php if ($this->session->flashdata('warning')): ?>
+				<div class="alert alert-warning alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<i class="fa fa-exclamation-triangle"></i>
+					<strong>Atenção:</strong> <?= $this->session->flashdata('warning'); ?>
+				</div>
+			<?php endif; ?>
+
+			<!-- PIX Methods Information -->
+			<div class="alert alert-info">
+				<i class="fa fa-info-circle"></i>
+				<strong>Informação sobre Métodos PIX:</strong>
+				<p class="mb-0 mt-2">Apenas <strong>um método PIX pode estar ativo por vez</strong>. Escolha entre:</p>
+				<ul class="mb-0 mt-2">
+					<li><strong>PIX Dinâmico (Mercado Pago):</strong> Confirmação automática via webhook, QR Code gerado automaticamente</li>
+					<li><strong>PIX Estático (da Loja):</strong> Confirmação manual pelo restaurante, usa sua própria chave PIX</li>
+				</ul>
+			</div>
+
 			<form class="email_setting_form mt-50" action="<?= base_url('admin/restaurant/add_payment_method'); ?>" method="post" enctype="multipart/form-data" autocomplete="off">
 				<?= csrf(); ?>
 				<?php if (shop_active('paypal_status') == 1) : ?>
@@ -269,9 +289,14 @@
 								<span class="ml-2">PIX Dinâmico - Mercado Pago</span>
 							</div>
 							<small class="text-muted d-block mt-1">Pagamento PIX instantâneo com QR Code automático</small>
+							<div id="pix-dinamico-exclusion-warning" class="alert alert-warning mt-2" style="display: none;">
+								<i class="fa fa-exclamation-triangle"></i>
+								<strong>Atenção:</strong> Apenas um método PIX pode estar ativo por vez. PIX Estático foi desabilitado automaticamente.
+							</div>
 						</div>
 						<div class="card-body">
 							<div class="row">
+								<?php $mercado = !empty($settings['mercado_config']) ? json_decode($settings['mercado_config']) : ''; ?>
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<label><?= function_exists('lang') ? htmlspecialchars(lang('status')) : 'Status'; ?></label>
 									<div>
@@ -295,6 +320,27 @@
 										<div id="validation-result" class="mt-2"></div>
 									</div>
 									<small class="text-muted">Verificar configuração do Mercado Pago</small>
+								</div>
+							</div>
+							<!-- Credenciais do Mercado Pago para PIX Dinâmico -->
+							<div class="row">
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="form-group">
+										<label class=""><?= !empty(lang('public_key')) ? lang('public_key') : "Chave Pública"; ?></label>
+										<div class="">
+											<input type="text" name="mercado_public_key" placeholder="<?= !empty(lang('public_key')) ? lang('public_key') : "Chave Pública"; ?>" class="form-control" value="<?= !empty($mercado->mercado_public_key) ? html_escape($mercado->mercado_public_key) : '';  ?>">
+										</div>
+										<small class="text-muted">Chave pública do Mercado Pago</small>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="form-group">
+										<label class=""><?= !empty(lang('access_token')) ? lang('access_token') : "Token de Acesso"; ?></label>
+										<div class="">
+											<input type="text" name="access_token" placeholder="<?= !empty(lang('access_token')) ? lang('access_token') : "Token de Acesso"; ?>" class="form-control" value="<?= !empty($mercado->access_token) ? html_escape($mercado->access_token) : '';  ?>">
+										</div>
+										<small class="text-muted">Token de acesso do Mercado Pago</small>
+									</div>
 								</div>
 							</div>
 						</div><!-- card-body -->
@@ -777,7 +823,13 @@
 					<div class="card">
 						<div class="card-header mt-1">
 							<div class="paymentImg">
-								<img src="<?php echo base_url('assets/frontend/images/payout/pix.png'); ?>" alt="PIX">
+								<img src="<?php echo base_url('assets/frontend/images/payout/pix.png'); ?>" alt="PIX" style="width: 32px; height: 32px;">
+								<span class="ml-2">PIX Estático - da Loja</span>
+							</div>
+							<small class="text-muted d-block mt-1">Pagamento PIX com confirmação manual pelo restaurante</small>
+							<div id="pix-estatico-exclusion-warning" class="alert alert-warning mt-2" style="display: none;">
+								<i class="fa fa-exclamation-triangle"></i>
+								<strong>Atenção:</strong> Apenas um método PIX pode estar ativo por vez. PIX Dinâmico foi desabilitado automaticamente.
 							</div>
 						</div>
 						<div class="card-body">
@@ -786,8 +838,9 @@
 								<div class="form-group col-md-6 col-sm-6 col-xs-12">
 									<label for=""><?= !empty(lang('status')) ? lang('status') : "Status"; ?></label>
 									<div class="">
-										<input type="checkbox" name="is_pix" class="" value="1" <?= isset($settings['is_pix']) && $settings['is_pix'] == 1 ? 'checked' : ''; ?> data-toggle="toggle" data-on="<i class='fa fa-check'></i> <?= lang('active'); ?>" data-off="<i class='fa fa-pause'></i> <?= lang('off'); ?>">
+										<input type="checkbox" name="is_pix" id="is_pix" class="" value="1" <?= isset($settings['is_pix']) && $settings['is_pix'] == 1 ? 'checked' : ''; ?> data-toggle="toggle" data-on="<i class='fa fa-check'></i> <?= lang('active'); ?>" data-off="<i class='fa fa-pause'></i> <?= lang('off'); ?>">
 									</div>
+									<small class="text-muted">Ativar PIX estático</small>
 								</div>
 							</div><!-- row -->
 							<div class="row">
@@ -857,6 +910,81 @@
 
 <script>
 $(document).ready(function() {
+	// PIX Mutual Exclusion Logic
+	function initPixMutualExclusion() {
+		var pixDinamicoToggle = $('#is_mercado_pix');
+		var pixEstaticoToggle = $('#is_pix');
+		var pixDinamicoWarning = $('#pix-dinamico-exclusion-warning');
+		var pixEstaticoWarning = $('#pix-estatico-exclusion-warning');
+
+		// Function to disable/enable toggles
+		function updateToggleStates() {
+			var isDinamicoActive = pixDinamicoToggle.prop('checked');
+			var isEstaticoActive = pixEstaticoToggle.prop('checked');
+
+			// Hide all warnings initially
+			pixDinamicoWarning.hide();
+			pixEstaticoWarning.hide();
+
+			// If both are somehow active, PIX Dinâmico takes priority
+			if (isDinamicoActive && isEstaticoActive) {
+				pixEstaticoToggle.bootstrapToggle('off');
+				pixDinamicoWarning.show();
+				return;
+			}
+
+			// Enable/disable toggles based on current state
+			if (isDinamicoActive) {
+				pixEstaticoToggle.bootstrapToggle('disable');
+			} else {
+				pixEstaticoToggle.bootstrapToggle('enable');
+			}
+
+			if (isEstaticoActive) {
+				pixDinamicoToggle.bootstrapToggle('disable');
+			} else {
+				pixDinamicoToggle.bootstrapToggle('enable');
+			}
+		}
+
+		// Event handlers for toggle changes
+		pixDinamicoToggle.change(function() {
+			var isChecked = $(this).prop('checked');
+			if (isChecked) {
+				if (pixEstaticoToggle.prop('checked')) {
+					pixEstaticoToggle.bootstrapToggle('off');
+					pixDinamicoWarning.show();
+				}
+				pixEstaticoToggle.bootstrapToggle('disable');
+			} else {
+				pixEstaticoToggle.bootstrapToggle('enable');
+				pixDinamicoWarning.hide();
+			}
+		});
+
+		pixEstaticoToggle.change(function() {
+			var isChecked = $(this).prop('checked');
+			if (isChecked) {
+				if (pixDinamicoToggle.prop('checked')) {
+					pixDinamicoToggle.bootstrapToggle('off');
+					pixEstaticoWarning.show();
+				}
+				pixDinamicoToggle.bootstrapToggle('disable');
+			} else {
+				pixDinamicoToggle.bootstrapToggle('enable');
+				pixEstaticoWarning.hide();
+			}
+		});
+
+		// Initialize states on page load
+		setTimeout(function() {
+			updateToggleStates();
+		}, 500); // Wait for bootstrap toggle to initialize
+	}
+
+	// Initialize PIX mutual exclusion
+	initPixMutualExclusion();
+
 	// Validação de credenciais do Mercado Pago para PIX dinâmico
 	$('#validate-mercado-credentials').click(function() {
 		var button = $(this);

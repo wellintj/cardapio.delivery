@@ -262,6 +262,7 @@ class Order_m extends CI_Model
             'is_ring' => 1,
             'is_change' => $inputData['is_change'] ?? 0,
             'change_amount' => $inputData['change_amount'] ?? 0,
+            'customer_payment_amount' => $inputData['customer_payment_amount'] ?? 0,
             'use_payment' => $inputData['use_payment'] ?? 0,
             'delivery_payment_method' => $inputData['delivery_payment_method'] ?? null,
             'is_confirm' => 0,

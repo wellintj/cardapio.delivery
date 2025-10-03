@@ -13,7 +13,7 @@
 							<p><?= __('txn_id'); ?> : <?= $getData['txn_id']; ?></p>
 						<?php endif; ?>
 						<?php if (isset($getData['method'])): ?>
-							<p><?= __('payment_by'); ?> : <?= $getData['method']; ?></p>
+							<p><?= __('payment_by'); ?> : <?= $getData['method'] == 'offline' ? 'PIX' : $getData['method']; ?></p>
 						<?php endif; ?>
 						<?php if (!empty($qr_link)): ?>
 

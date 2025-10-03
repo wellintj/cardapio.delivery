@@ -1150,7 +1150,6 @@ Order area
 				'status' => 2,
 				'is_payment' => 1,
 				'is_restaurant_payment' => 1,
-				'payment_by' => 'restaurant',
 				'accept_time' => d_time(),
 				'completed_time' => d_time(),
 			];
@@ -1161,7 +1160,6 @@ Order area
 			$data = [
 				'is_payment' => 1,
 				'is_restaurant_payment' => 1,
-				'payment_by' => 'restaurant',
 			];
 		}
 
@@ -1722,6 +1720,17 @@ Order area
 				'is_iyzico_live' => $this->input->post('is_iyzico_live', TRUE) != 1 ? 0 : 1,
 			);
 
+			// PIX Mutual Exclusion Validation
+			$is_pix_estatico = $this->input->post('is_pix', TRUE) == 1 ? 1 : 0;
+			$is_pix_dinamico = $this->input->post('is_mercado_pix', TRUE) == 1 ? 1 : 0;
+
+			// Check if both PIX methods are being enabled
+			if ($is_pix_estatico == 1 && $is_pix_dinamico == 1) {
+				// PIX Dinâmico takes priority - disable PIX Estático
+				$is_pix_estatico = 0;
+				$this->session->set_flashdata('warning', 'Apenas um método PIX pode estar ativo por vez. PIX Dinâmico foi mantido ativo e PIX Estático foi desabilitado automaticamente.');
+			}
+
 			$data = array(
 				'is_paypal' => $this->input->post('is_paypal', TRUE) != 1 ? 0 : 1,
 				'is_stripe' => $this->input->post('is_stripe', TRUE) != 1 ? 0 : 1,
@@ -1740,8 +1749,8 @@ Order area
 				'is_cashfree' => $this->input->post('is_cashfree', TRUE) != 1 ? 0 : 1,
 				'is_iyzico' => $this->input->post('is_iyzico', TRUE) != 1 ? 0 : 1,
 				'is_myfatoorah' => $this->input->post('is_myfatoorah', TRUE) != 1 ? 0 : 1,
-				'is_pix' => $this->input->post('is_pix', TRUE) != 1 ? 0 : 1,
-				'is_mercado_pix' => $this->input->post('is_mercado_pix', TRUE) != 1 ? 0 : 1,
+				'is_pix' => $is_pix_estatico,
+				'is_mercado_pix' => $is_pix_dinamico,
 
 				'paypal_config' => json_encode($paypal),
 				'stripe_config' => json_encode($stripe),
@@ -1769,7 +1778,7 @@ Order area
 			endif;
 			if ($insert) {
 				// Atualizar ou inserir os dados do PIX na tabela pix_config
-				if($this->input->post('is_pix', TRUE) == 1 && !empty($this->input->post('pix_key', TRUE))) {
+				if($is_pix_estatico == 1 && !empty($this->input->post('pix_key', TRUE))) {
 					// Verificar se já existe registro para este restaurante
 					$pix_exists = $this->db->where('restaurant_id', $id)->get('pix_config')->row();
 					

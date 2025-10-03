@@ -19,6 +19,62 @@
                     <?php else : ?>
                         <label class="badge info-light"><?= order_type($row['order_type']); ?></label>
                     <?php endif; ?>
+
+                    <!-- Payment Status for Delivery Staff -->
+                    <?php if (!empty($row['payment_by']) && $row['is_payment'] == 1) : ?>
+                        <div class="payment-status-badge mb-5">
+                            <span class="badge badge-success">
+                                <i class="fa fa-check-circle"></i> <?= lang('paid_online'); ?>
+                            </span>
+                            <?php
+                            $payment_icons = [
+                                'mercado_pix' => 'PIX (MP)',
+                                'pix' => 'PIX (Loja)',
+                                'paypal' => 'PayPal',
+                                'stripe' => 'Cartão'
+                            ];
+                            $payment_label = $payment_icons[$row['payment_by']] ?? lang($row['payment_by']);
+                            ?>
+                            <small class="text-muted d-block"><?= $payment_label; ?></small>
+                        </div>
+                    <?php else : ?>
+                        <div class="payment-status-badge mb-5">
+                            <span class="badge badge-warning">
+                                <i class="fa fa-money"></i> <?= lang('collect_on_delivery'); ?>
+                            </span>
+                            <?php if (!empty($row['delivery_payment_method'])) : ?>
+                                <?php
+                                $delivery_methods = [
+                                    'cash' => lang('cash'),
+                                    'credit_card' => lang('credit_card'),
+                                    'debit_card' => lang('debit_card'),
+                                    'pix' => 'PIX'
+                                ];
+                                $delivery_label = $delivery_methods[$row['delivery_payment_method']] ?? $row['delivery_payment_method'];
+                                ?>
+                                <small class="text-muted d-block"><?= $delivery_label; ?></small>
+
+                                <?php if (isset($row['is_change']) && $row['is_change'] == 1) : ?>
+                                    <?php if (!empty($row['customer_payment_amount']) && $row['customer_payment_amount'] > 0) : ?>
+                                        <?php
+                                        // Calcular o troco correto
+                                        $customer_amount = floatval($row['customer_payment_amount']);
+                                        $order_total = floatval($row['total']);
+                                        $change_to_return = $customer_amount - $order_total;
+                                        ?>
+                                        <small class="text-info d-block">
+                                            <i class="fa fa-money"></i> <?= lang('change_amount_to_return'); ?>: <?= currency_position($change_to_return, $row['shop_id']); ?>
+                                        </small>
+                                    <?php else : ?>
+                                        <small class="text-info d-block">
+                                            <i class="fa fa-exchange"></i> <?= lang('change'); ?>: <?= currency_position($row['change_amount'], $row['shop_id']); ?>
+                                        </small>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
                     <p><?= $row['total_item']; ?> <?= lang('item'); ?> - <?= currency_position($row['total'], $row['shop_id']); ?>
                     </p>
                     <p><i class="fa fa-map-marker"></i> <?= $row['address']; ?></p>

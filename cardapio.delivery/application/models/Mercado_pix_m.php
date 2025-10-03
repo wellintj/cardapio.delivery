@@ -270,11 +270,13 @@ class Mercado_pix_m extends CI_Model
             // Atualizar status do pedido
             $update_data = [
                 'status' => 1, // Aprovado
-                'payment_status' => 1, // Pago
+                'is_payment' => 1, // Pago
+                'is_restaurant_payment' => 0, // Confirmação automática via webhook
+                'accept_time' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            $this->db->where('id', $order_id);
+            $this->db->where('uid', $order_id);
             $this->db->update('order_user_list', $update_data);
 
             if ($this->db->affected_rows() > 0) {

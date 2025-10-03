@@ -297,8 +297,32 @@ endif;
 
                                     <!-- payment status -->
                                     <?php if ($order['is_payment'] == 0) : ?>
-                                        <a href="<?= base_url('admin/restaurant/order_payment_status/' . $order['id'] . '/2'); ?>" class="btn primary-light" data-toggle="tooltip" title="<?= lang('mark_as_paid'); ?>"><i class="fa fa-check"></i> &nbsp;
-                                            <?= lang('mark_as_paid'); ?> </a> &nbsp;
+                                        <?php if ($order['payment_by'] == 'pix') : ?>
+                                            <!-- PIX Estático - Controle manual -->
+                                            <div class="pix-static-controls mb-2">
+                                                <small class="text-muted d-block mb-2">
+                                                    <i class="fa fa-info-circle"></i> PIX Estático (Loja) - Confirme manualmente após receber o pagamento
+                                                </small>
+                                                <a href="<?= base_url('admin/restaurant/order_payment_status/' . $order['id'] . '/2'); ?>" class="btn success-light" data-toggle="tooltip" title="<?= lang('mark_as_paid'); ?>">
+                                                    <i class="fa fa-check"></i> &nbsp; <?= lang('confirm_pix_payment'); ?>
+                                                </a>
+                                            </div>
+                                        <?php elseif ($order['payment_by'] == 'mercado_pix') : ?>
+                                            <!-- PIX Dinâmico - Automático -->
+                                            <div class="pix-dynamic-info mb-2">
+                                                <small class="text-muted d-block mb-2">
+                                                    <i class="fa fa-clock-o"></i> PIX Dinâmico (Mercado Pago) - Aguardando confirmação automática
+                                                </small>
+                                                <a href="javascript:;" class="btn info-light" disabled>
+                                                    <i class="fa fa-spinner fa-spin"></i> &nbsp; <?= lang('waiting_payment'); ?>
+                                                </a>
+                                            </div>
+                                        <?php else : ?>
+                                            <!-- Outros métodos de pagamento -->
+                                            <a href="<?= base_url('admin/restaurant/order_payment_status/' . $order['id'] . '/2'); ?>" class="btn primary-light" data-toggle="tooltip" title="<?= lang('mark_as_paid'); ?>">
+                                                <i class="fa fa-check"></i> &nbsp; <?= lang('mark_as_paid'); ?>
+                                            </a> &nbsp;
+                                        <?php endif; ?>
                                     <?php else : ?>
                                         <a href="javascript:;" class="btn success-light-active" data-toggle="tooltip" title="Completed"><i class="fa fa-check"></i> &nbsp; <?= lang('paid'); ?> </a>
                                         &nbsp;
@@ -585,33 +609,28 @@ endif;
                         <?php endif ?>
                         <?php if (isset($order['is_change']) && $order['is_change'] == 1) : ?>
                             <div class="commentsArea">
-                                <h4><?= lang('change_amount'); ?> :
-                                    <?= currency_position($order['change_amount'], $shop_id); ?></h4>
+                                <?php if (!empty($order['customer_payment_amount']) && $order['customer_payment_amount'] > 0) : ?>
+                                    <?php
+                                    // Calcular o troco correto
+                                    $customer_amount = floatval($order['customer_payment_amount']);
+                                    $order_total = floatval($order['total']);
+                                    $change_to_return = $customer_amount - $order_total;
+                                    ?>
+                                    <h4><?= lang('change_calculation'); ?>:</h4>
+                                    <div class="change-calculation-details">
+                                        <p><strong><?= lang('customer_bill_amount'); ?>:</strong> <?= currency_position($customer_amount, $shop_id); ?></p>
+                                        <p><strong><?= lang('order_total'); ?>:</strong> <?= currency_position($order_total, $shop_id); ?></p>
+                                        <hr>
+                                        <h4 class="text-success"><strong><?= lang('change_amount_to_return'); ?>: <?= currency_position($change_to_return, $shop_id); ?></strong></h4>
+                                    </div>
+                                <?php else : ?>
+                                    <h4><?= lang('change_value'); ?> :
+                                        <?= currency_position($order['change_amount'], $shop_id); ?></h4>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
 
-                        <?php if (!empty($order['delivery_payment_method']) && $order['order_type'] == 1) : ?>
-                            <div class="commentsArea">
-                                <h4><?= lang('delivery_payment_method'); ?>:</h4>
-                                <div class="delivery-payment-display">
-                                    <?php
-                                    $payment_methods = [
-                                        'cash' => ['icon' => 'cash-delivery.svg', 'label' => lang('cash_on_delivery')],
-                                        'credit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('credit_card_on_delivery')],
-                                        'debit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('debit_card_on_delivery')],
-                                        'pix' => ['icon' => 'pix-delivery.svg', 'label' => lang('pix_on_delivery')]
-                                    ];
-                                    $method = $payment_methods[$order['delivery_payment_method']] ?? null;
-                                    ?>
-                                    <?php if ($method) : ?>
-                                        <div class="payment-method-info">
-                                            <img src="<?= base_url('imagens_para_checkout/' . $method['icon']); ?>" alt="<?= $method['label']; ?>" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
-                                            <span><?= $method['label']; ?></span>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+
 
                         <?php if (!empty($order['comments'])) : ?>
                             <div class="commentsArea">
@@ -688,6 +707,273 @@ endif;
                     </div><!-- row -->
                 <?php endif; ?>
             <?php endif; ?>
+
+            <!-- Payment Information Section -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="fa fa-credit-card"></i> <?= lang('payment_information'); ?>
+                            </h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <?php
+                            // Obter informações de pagamento PIX se existir
+                            $pix_payment_data = null;
+                            if (!empty($order['pix_payment_data'])) {
+                                $pix_payment_data = json_decode($order['pix_payment_data'], true);
+                            }
+                            ?>
+
+                            <!-- Status de Pagamento -->
+                            <div class="payment-status-section mb-15">
+                                <h4 class="payment-section-title">
+                                    <i class="fa fa-info-circle"></i> <?= lang('payment_status'); ?>
+                                </h4>
+                                <div class="payment-status-display">
+                                    <?php if ($order['is_payment'] == 1) : ?>
+                                        <span class="label label-success label-lg">
+                                            <i class="fa fa-check-circle"></i> <?= lang('paid'); ?>
+                                        </span>
+                                    <?php else : ?>
+                                        <span class="label label-warning label-lg">
+                                            <i class="fa fa-clock-o"></i> <?= lang('unpaid'); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                    <div class="payment-amount mt-10">
+                                        <strong><?= lang('total_amount'); ?>:</strong>
+                                        <span class="text-primary"><?= currency_position($order['total'], $shop_id); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Método de Pagamento -->
+                            <div class="payment-method-section mb-15">
+                                <h4 class="payment-section-title">
+                                    <i class="fa fa-credit-card-alt"></i> <?= lang('payment_method'); ?>
+                                </h4>
+                                <div class="payment-method-display">
+                                    <?php
+                                    // Verificar se é pagamento na entrega
+                                    $is_delivery_payment = !empty($order['delivery_payment_method']) && $order['order_type'] == 1;
+                                    ?>
+
+                                    <?php if ($is_delivery_payment) : ?>
+                                        <?php
+                                        // Métodos de pagamento na entrega
+                                        $delivery_methods = [
+                                            'cash' => ['icon' => 'cash-delivery.svg', 'label' => lang('cash_on_delivery'), 'class' => 'label-success'],
+                                            'credit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('credit_card_on_delivery'), 'class' => 'label-warning'],
+                                            'debit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('debit_card_on_delivery'), 'class' => 'label-warning'],
+                                            'pix' => ['icon' => 'pix-delivery.svg', 'label' => lang('pix_on_delivery'), 'class' => 'label-info']
+                                        ];
+                                        $delivery_method = $delivery_methods[$order['delivery_payment_method']] ?? null;
+                                        ?>
+
+                                        <?php if ($delivery_method) : ?>
+                                            <div class="payment-method-info">
+                                                <img src="<?= base_url('imagens_para_checkout/' . $delivery_method['icon']); ?>"
+                                                     alt="<?= $delivery_method['label']; ?>"
+                                                     width="24" height="24"
+                                                     style="vertical-align: middle; margin-right: 8px;">
+                                                <span class="label <?= $delivery_method['class']; ?> label-lg">
+                                                    <?= $delivery_method['label']; ?>
+                                                </span>
+                                            </div>
+                                        <?php else : ?>
+                                            <span class="label label-default label-lg">
+                                                <?= ucfirst(str_replace('_', ' ', $order['delivery_payment_method'])); ?>
+                                            </span>
+                                        <?php endif; ?>
+
+                                    <?php elseif (!empty($order['payment_by'])) : ?>
+                                        <?php
+                                        // Métodos de pagamento online
+                                        $payment_icons = [
+                                            'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Dinâmico (Mercado Pago)', 'class' => 'label-info'],
+                                            'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (da Loja)', 'class' => 'label-primary'],
+                                            'stripe' => ['icon' => 'card-terminal.svg', 'label' => 'Stripe', 'class' => 'label-primary'],
+                                            'mercadopago' => ['icon' => 'mercadopago.svg', 'label' => 'Mercado Pago', 'class' => 'label-info'],
+                                            'offline' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (da Loja)', 'class' => 'label-primary']
+                                        ];
+
+                                        $payment_method = $payment_icons[$order['payment_by']] ?? null;
+                                        ?>
+
+                                        <?php if ($payment_method) : ?>
+                                            <div class="payment-method-info">
+                                                <img src="<?= base_url('imagens_para_checkout/' . $payment_method['icon']); ?>"
+                                                     alt="<?= $payment_method['label']; ?>"
+                                                     width="24" height="24"
+                                                     style="vertical-align: middle; margin-right: 8px;">
+                                                <span class="label <?= $payment_method['class']; ?> label-lg">
+                                                    <?= $payment_method['label']; ?>
+                                                </span>
+                                            </div>
+                                        <?php else : ?>
+                                            <span class="label label-default label-lg">
+                                                <?= lang($order['payment_by']); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    <?php else : ?>
+                                        <span class="text-muted"><?= lang('not_specified'); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <!-- Informações do PIX Dinâmico -->
+                            <?php if ($order['payment_by'] == 'mercado_pix' && $pix_payment_data) : ?>
+                                <div class="pix-dynamic-section mb-15">
+                                    <h4 class="payment-section-title">
+                                        <i class="fa fa-qrcode"></i> PIX Dinâmico (Mercado Pago)
+                                    </h4>
+                                    <div class="pix-essential-info">
+                                        <!-- Transaction ID -->
+                                        <?php if (isset($pix_payment_data['payment_id'])) : ?>
+                                            <div class="pix-detail-item mb-10">
+                                                <strong><i class="fa fa-hashtag"></i> ID da Transação:</strong>
+                                                <span class="text-monospace label label-default"><?= htmlspecialchars($pix_payment_data['payment_id']); ?></span>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Timer Status -->
+                                        <?php if (isset($pix_payment_data['expiration_timestamp']) && $order['is_payment'] == 0) : ?>
+                                            <div class="pix-detail-item mb-10">
+                                                <strong><i class="fa fa-clock-o"></i> Status do Pagamento:</strong>
+                                                <span id="pix-timer-status" class="label label-info">
+                                                    <i class="fa fa-clock-o"></i> <span id="pix-countdown">Calculando...</span>
+                                                </span>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Payment Status -->
+                                        <div class="pix-status-info mt-15">
+                                            <?php if ($order['is_payment'] == 1) : ?>
+                                                <?php if ($order['is_restaurant_payment'] == 1) : ?>
+                                                    <div class="alert alert-warning">
+                                                        <i class="fa fa-check-circle"></i>
+                                                        <strong>Pagamento confirmado manualmente pelo restaurante</strong>
+                                                    </div>
+                                                <?php else : ?>
+                                                    <div class="alert alert-success">
+                                                        <i class="fa fa-check-circle"></i>
+                                                        <strong>Pagamento confirmado automaticamente</strong>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php else : ?>
+                                                <div class="alert alert-info">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    <strong>Aguardando confirmação automática do pagamento</strong>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- PIX Timer JavaScript -->
+                                <?php if (isset($pix_payment_data['expiration_timestamp']) && $order['is_payment'] == 0) : ?>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const expirationTimestamp = <?= intval($pix_payment_data['expiration_timestamp']); ?>;
+                                            const timerElement = document.getElementById('pix-countdown');
+                                            const statusElement = document.getElementById('pix-timer-status');
+
+                                            if (timerElement && statusElement) {
+                                                function updatePixTimer() {
+                                                    const now = Math.floor(Date.now() / 1000);
+                                                    const timeLeft = expirationTimestamp - now;
+
+                                                    if (timeLeft <= 0) {
+                                                        timerElement.textContent = 'Expirado';
+                                                        statusElement.className = 'label label-danger';
+                                                        statusElement.innerHTML = '<i class="fa fa-times-circle"></i> Expirado';
+                                                        return;
+                                                    }
+
+                                                    const minutes = Math.floor(timeLeft / 60);
+                                                    const seconds = timeLeft % 60;
+
+                                                    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                                                    if (minutes < 5) {
+                                                        statusElement.className = 'label label-warning';
+                                                        statusElement.innerHTML = '<i class="fa fa-exclamation-triangle"></i> <span id="pix-countdown">' + timerElement.textContent + '</span>';
+                                                    } else {
+                                                        statusElement.className = 'label label-info';
+                                                        statusElement.innerHTML = '<i class="fa fa-clock-o"></i> <span id="pix-countdown">' + timerElement.textContent + '</span>';
+                                                    }
+                                                }
+
+                                                updatePixTimer();
+                                                setInterval(updatePixTimer, 1000);
+                                            }
+                                        });
+                                    </script>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <!-- Informações do PIX Estático -->
+                            <?php if ($order['payment_by'] == 'pix' || $order['payment_by'] == 'offline') : ?>
+                                <div class="pix-static-section mb-15">
+                                    <h4 class="payment-section-title">
+                                        <i class="fa fa-qrcode"></i> PIX Estático (da Loja)
+                                    </h4>
+                                    <div class="pix-static-info">
+                                        <?php if ($order['is_payment'] == 0) : ?>
+                                            <div class="alert alert-warning">
+                                                <i class="fa fa-exclamation-triangle"></i>
+                                                <strong>Confirmação manual necessária</strong><br>
+                                                <small>Verifique sua conta bancária e confirme o recebimento no histórico abaixo</small>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="alert alert-success">
+                                                <i class="fa fa-check-circle"></i>
+                                                <strong>Pagamento confirmado manualmente</strong>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <!-- Cálculo do Troco (apenas para pagamentos na entrega com troco) -->
+                            <?php if (!empty($order['delivery_payment_method']) && $order['order_type'] == 1 && isset($order['is_change']) && $order['is_change'] == 1) : ?>
+                                <div class="change-calculation-section mb-15">
+                                    <h4 class="payment-section-title">
+                                        <i class="fa fa-calculator"></i> <?= lang('change_calculation'); ?>
+                                    </h4>
+                                    <div class="change-calculation-display">
+                                        <?php if (!empty($order['customer_payment_amount']) && $order['customer_payment_amount'] > 0) : ?>
+                                            <?php
+                                            // Calcular o troco correto
+                                            $customer_amount = floatval($order['customer_payment_amount']);
+                                            $order_total = floatval($order['total']);
+                                            $change_to_return = $customer_amount - $order_total;
+                                            ?>
+                                            <div class="alert alert-info">
+                                                <p><strong><?= lang('customer_bill_amount'); ?>:</strong> <?= currency_position($customer_amount, $shop_id); ?></p>
+                                                <p><strong><?= lang('order_total'); ?>:</strong> <?= currency_position($order_total, $shop_id); ?></p>
+                                                <hr style="margin: 8px 0;">
+                                                <h4 class="text-success mb-0">
+                                                    <i class="fa fa-money"></i> <strong><?= lang('change_amount_to_return'); ?>: <?= currency_position($change_to_return, $shop_id); ?></strong>
+                                                </h4>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="alert alert-warning">
+                                                <strong><?= lang('change_value'); ?>:</strong>
+                                                <span class="text-success"><?= currency_position($order['change_amount'], $shop_id); ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-12">
@@ -802,7 +1088,7 @@ endif;
 
                                             <div class="timeline-body">
                                                 <h5><?= !empty(lang('payment_by')) ? lang('payment_by') : "Payment By"; ?>:
-                                                    <label class="label bg-primary-soft"><?= $order['payment_by']; ?></label>
+                                                    <label class="label bg-primary-soft"><?= $order['payment_by'] == 'offline' ? 'PIX Estático' : $order['payment_by']; ?></label>
                                                 </h5>
                                                 <?php if (isset($paymentInfo['txn_id'])) : ?>
                                                     <div class="mt-5">

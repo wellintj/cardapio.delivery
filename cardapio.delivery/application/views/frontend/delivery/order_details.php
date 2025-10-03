@@ -24,6 +24,116 @@
                 </div>
 
                 <div class="d_single_order_body">
+                    <!-- Payment Information Section for Delivery Staff -->
+                    <div class="shopArea delivery-panel payment-info-section">
+                        <div class="payment-status-header">
+                            <h4><i class="fa fa-credit-card"></i> <?= lang('payment_information'); ?></h4>
+                        </div>
+
+                        <!-- Payment Status -->
+                        <?php if (!empty($order_info['payment_by']) && $order_info['is_payment'] == 1) : ?>
+                            <div class="payment-status-paid">
+                                <div class="alert alert-success">
+                                    <i class="fa fa-check-circle"></i>
+                                    <strong><?= lang('paid_online'); ?> - <?= lang('do_not_collect'); ?></strong>
+                                    <br>
+                                    <?php
+                                    // Definir ícones e labels para métodos de pagamento
+                                    $payment_methods = [
+                                        'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Dinâmico (Mercado Pago)'],
+                                        'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (da Loja)'],
+                                        'paypal' => ['icon' => 'card-terminal.svg', 'label' => 'PayPal'],
+                                        'stripe' => ['icon' => 'card-terminal.svg', 'label' => 'Cartão de Crédito']
+                                    ];
+
+                                    $payment_method = $payment_methods[$order_info['payment_by']] ?? null;
+                                    ?>
+
+                                    <?php if ($payment_method) : ?>
+                                        <div class="payment-method-display">
+                                            <img src="<?= base_url('imagens_para_checkout/' . $payment_method['icon']); ?>"
+                                                 alt="<?= $payment_method['label']; ?>"
+                                                 width="20" height="20"
+                                                 style="vertical-align: middle; margin-right: 8px;">
+                                            <span><?= $payment_method['label']; ?></span>
+                                        </div>
+                                    <?php else : ?>
+                                        <span><?= lang($order_info['payment_by']); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php else : ?>
+                            <!-- Payment on Delivery -->
+                            <div class="payment-status-delivery">
+                                <div class="alert alert-warning">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    <strong><?= lang('collect_payment_on_delivery'); ?></strong>
+                                </div>
+
+                                <?php if (!empty($order_info['delivery_payment_method'])) : ?>
+                                    <div class="delivery-payment-info">
+                                        <h5><?= lang('payment_method'); ?>:</h5>
+                                        <?php
+                                        $delivery_methods = [
+                                            'cash' => ['icon' => 'cash-delivery.svg', 'label' => lang('cash_on_delivery')],
+                                            'credit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('credit_card_on_delivery')],
+                                            'debit_card' => ['icon' => 'card-terminal.svg', 'label' => lang('debit_card_on_delivery')],
+                                            'pix' => ['icon' => 'pix-delivery.svg', 'label' => lang('pix_on_delivery')]
+                                        ];
+                                        $delivery_method = $delivery_methods[$order_info['delivery_payment_method']] ?? null;
+                                        ?>
+
+                                        <?php if ($delivery_method) : ?>
+                                            <div class="payment-method-display">
+                                                <img src="<?= base_url('imagens_para_checkout/' . $delivery_method['icon']); ?>"
+                                                     alt="<?= $delivery_method['label']; ?>"
+                                                     width="24" height="24"
+                                                     style="vertical-align: middle; margin-right: 8px;">
+                                                <span class="payment-method-label"><?= $delivery_method['label']; ?></span>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <!-- Change Information -->
+                                        <?php if (isset($order_info['is_change']) && $order_info['is_change'] == 1) : ?>
+                                            <div class="change-info mt-15">
+                                                <div class="alert alert-info">
+                                                    <i class="fa fa-money"></i>
+                                                    <strong><?= lang('change_required'); ?></strong><br>
+
+                                                    <?php if (!empty($order_info['customer_payment_amount']) && $order_info['customer_payment_amount'] > 0) : ?>
+                                                        <?php
+                                                        // Calcular o troco correto
+                                                        $customer_amount = floatval($order_info['customer_payment_amount']);
+                                                        $order_total = floatval($order_info['total']);
+                                                        $change_to_return = $customer_amount - $order_total;
+                                                        ?>
+                                                        <div class="change-calculation">
+                                                            <p><strong><?= lang('customer_bill_amount'); ?>:</strong>
+                                                               <?= currency_position($customer_amount, $shop_id); ?></p>
+                                                            <p><strong><?= lang('order_total'); ?>:</strong>
+                                                               <?= currency_position($order_total, $shop_id); ?></p>
+                                                            <hr style="margin: 8px 0;">
+                                                            <p class="change-amount"><strong><?= lang('change_amount_to_return'); ?>:</strong>
+                                                               <span class="text-success" style="font-size: 18px; font-weight: bold;">
+                                                                   <?= currency_position($change_to_return, $shop_id); ?>
+                                                               </span>
+                                                            </p>
+                                                        </div>
+                                                    <?php elseif (!empty($order_info['change_amount']) && $order_info['change_amount'] > 0) : ?>
+                                                        <p><strong><?= lang('change_value'); ?>:</strong>
+                                                           <span class="text-success"><?= currency_position($order_info['change_amount'], $shop_id); ?></span></p>
+                                                    <?php else : ?>
+                                                        <p><strong><?= lang('change_required'); ?></strong></p>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
                     <div class="shopArea delivery-panel">
                         <div class="topd_Order pb-7">
                             <p><?= lang('shipping'); ?></p>
@@ -34,12 +144,6 @@
                             <h4><?= !empty(lang('total_earnings')) ? lang('total_earnings') : "Total Earnings"; ?></h4>
                             <p><b><?= currency_position($order_info['total'], $shop_id) ?></b></p>
                         </div>
-                        <?php if (!empty($order_info['payment_by']) && $order_info['is_payment'] == 1) : ?>
-                            <div class="topd_Order bt-1-dashed pt-7">
-                                <p class="digitalPaymentText bg-green"><i class="fa fa-check"></i>
-                                    <?= lang('digital_payment'); ?> (<b><?= lang($order_info['payment_by']); ?></b>)</p>
-                            </div>
-                        <?php endif; ?>
                     </div>
 
                     <div class="shopArea delivery-panel">

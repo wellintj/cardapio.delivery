@@ -90,13 +90,59 @@
                                 <?php endif; ?>
 
                                 <?php if ($row['is_payment'] == 1) : ?>
-                                    <?php if ($row['is_payment'] == 1) : ?>
-                                        <label class="label success-light"><?= lang('paid'); ?></label> &nbsp;
-                                        <label class="label default-light" data-toggle="tooltip" title="Payment paid by"><?= lang($row['payment_by']); ?></label> &nbsp;
-                                    <?php else : ?>
-                                        <label class="label danger-light"><?= lang('rejected'); ?></label>
-                                    <?php endif; ?>
+                                    <label class="label success-light"><?= lang('paid'); ?></label> &nbsp;
+                                    <?php if (!empty($row['payment_by'])) : ?>
+                                        <?php
+                                        // Definir ícones e labels para métodos PIX
+                                        $pix_methods = [
+                                            'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX (MP)'],
+                                            'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)'],
+                                            'offline' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)']
+                                        ];
 
+                                        if (array_key_exists($row['payment_by'], $pix_methods)) {
+                                            $method = $pix_methods[$row['payment_by']];
+                                            ?>
+                                            <div class="pix-payment-info d-inline-block">
+                                                <img src="<?= base_url('imagens_para_checkout/' . $method['icon']); ?>" alt="<?= $method['label']; ?>" width="16" height="16" style="width: 16px !important; height: 16px !important; vertical-align: middle; margin-right: 5px;">
+                                                <label class="label default-light" data-toggle="tooltip" title="Payment paid by"><?= $method['label']; ?></label>
+                                            </div>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <label class="label default-light" data-toggle="tooltip" title="Payment paid by"><?= lang($row['payment_by']); ?></label>
+                                            <?php
+                                        }
+                                        ?>
+                                    <?php endif; ?>
+                                <?php else : ?>
+                                    <label class="label danger-light"><?= lang('unpaid'); ?></label>
+                                    <?php if (!empty($row['payment_by'])) : ?>
+                                        <?php
+                                        // Mostrar método de pagamento mesmo quando não pago
+                                        $pix_methods = [
+                                            'mercado_pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX (MP)'],
+                                            'pix' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)'],
+                                            'offline' => ['icon' => 'pix-delivery.svg', 'label' => 'PIX Estático (Loja)']
+                                        ];
+
+                                        if (array_key_exists($row['payment_by'], $pix_methods)) {
+                                            $method = $pix_methods[$row['payment_by']];
+                                            ?>
+                                            <div class="pix-payment-info d-inline-block mt-2">
+                                                <img src="<?= base_url('imagens_para_checkout/' . $method['icon']); ?>" alt="<?= $method['label']; ?>" width="16" height="16" style="width: 16px !important; height: 16px !important; vertical-align: middle; margin-right: 5px;">
+                                                <small><?= $method['label']; ?></small>
+                                            </div>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <div class="mt-2">
+                                                <small><?= lang($row['payment_by']); ?></small>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    <?php endif; ?>
                                 <?php endif; ?>
 
                                 <?php if ($row['order_type'] == 1 && !empty($row['delivery_payment_method'])) : ?>
