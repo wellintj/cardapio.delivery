@@ -113,6 +113,10 @@
   <link rel="stylesheet" href="<?= asset_url() ?>public/admin/default.php?v=<?= $settings['version']; ?>&time=<?= time(); ?>?themes=<?= $theme; ?>&theme_color=<?= $theme_color; ?>&color=<?= $color; ?>">
 
   <link rel="stylesheet" href="<?= asset_url() ?>public/admin/style.main.css?v=<?= $settings['version']; ?>&time=<?= time(); ?>">
+
+  <!-- Custom Delivery Interface Improvements CSS -->
+  <link rel="stylesheet" href="<?= asset_url() ?>delivery_interface_improvements.css?v=<?= $settings['version']; ?>&time=<?= time(); ?>">
+
   <?php if (direction() == 'rtl') : ?>
     <link rel="stylesheet" href="<?= asset_url() ?>public/frontend/css/custom_rtl.css?v=<?= $settings['version']; ?>&time=<?= time(); ?>">
   <?php endif ?>

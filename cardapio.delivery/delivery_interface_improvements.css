@@ -1,0 +1,366 @@
+/* Delivery Interface Improvements - Payment Information */
+
+/* Payment Information Section */
+.payment-info-section {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.payment-status-header {
+    background-color: #337ab7;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px 6px 0 0;
+    margin: -1px -1px 15px -1px;
+}
+
+.payment-status-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Payment Status Alerts */
+.payment-status-paid .alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.payment-status-delivery .alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.payment-status-delivery .alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+/* Payment Method Display */
+.payment-method-display {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+}
+
+.payment-method-display img {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.payment-method-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Change Information */
+.change-info {
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+}
+
+.change-calculation {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    border-left: 4px solid #17a2b8;
+}
+
+.change-calculation p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.change-amount {
+    font-size: 16px !important;
+    font-weight: bold;
+}
+
+.change-amount .text-success {
+    color: #28a745 !important;
+    font-size: 18px;
+}
+
+/* Payment Section Specific Styles */
+.payment-section-title {
+    color: #495057;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 5px;
+}
+
+.payment-section-title i {
+    color: #6c757d;
+    margin-right: 8px;
+}
+
+/* Change Calculation Section */
+.change-calculation-section {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.change-calculation-display .alert {
+    margin-bottom: 0;
+    border-radius: 6px;
+    padding: 12px 15px;
+}
+
+.change-calculation-display .alert-info {
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+    color: #0c5460 !important;
+}
+
+.change-calculation-display .alert-warning {
+    background-color: #fff3cd !important;
+    border-color: #ffeaa7 !important;
+    color: #856404 !important;
+}
+
+.change-calculation-display .alert p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.change-calculation-display .alert hr {
+    border-color: rgba(0,0,0,0.1);
+    margin: 8px 0;
+}
+
+.change-calculation-display .alert h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.change-calculation-display .alert h4 i {
+    margin-right: 5px;
+}
+
+/* Order List Payment Badges */
+.payment-status-badge {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.payment-status-badge .badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+.payment-status-badge .badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.payment-status-badge .badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.payment-status-badge small {
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.payment-status-badge .text-info {
+    color: #17a2b8 !important;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-info-section {
+        margin-bottom: 10px;
+    }
+    
+    .payment-status-header h4 {
+        font-size: 14px;
+    }
+    
+    .payment-method-display {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .payment-method-display img {
+        margin-bottom: 5px;
+    }
+    
+    .change-calculation {
+        padding: 8px;
+    }
+    
+    .change-calculation p {
+        font-size: 12px;
+    }
+    
+    .change-amount .text-success {
+        font-size: 16px;
+    }
+}
+
+/* Order Card Enhancements */
+.singleOrder {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.singleOrder:hover {
+    border-color: #337ab7;
+    box-shadow: 0 2px 8px rgba(51, 122, 183, 0.2);
+}
+
+/* Delivery Payment Info Section */
+.delivery-payment-info {
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.delivery-payment-info h5 {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 4px;
+}
+
+/* Icons and Visual Elements */
+.fa-check-circle,
+.fa-exclamation-triangle,
+.fa-money,
+.fa-credit-card {
+    margin-right: 5px;
+}
+
+/* Text Colors */
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Alert Customizations */
+.alert {
+    border-radius: 6px;
+    padding: 12px 15px;
+}
+
+.alert i {
+    margin-right: 8px;
+}
+
+.alert strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Override any conflicting alert styles */
+.box-body .alert-info {
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+    color: #0c5460 !important;
+}
+
+.box-body .alert-warning {
+    background-color: #fff3cd !important;
+    border-color: #ffeaa7 !important;
+    color: #856404 !important;
+}
+
+.box-body .alert-success {
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+    color: #155724 !important;
+}
+
+/* Specific overrides for payment information section */
+.box-primary .box-body .change-calculation-display .alert-info {
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+    color: #0c5460 !important;
+}
+
+.box-primary .box-body .change-calculation-display .alert-warning {
+    background-color: #fff3cd !important;
+    border-color: #ffeaa7 !important;
+    color: #856404 !important;
+}
+
+/* Ensure no yellow background on change calculation */
+.change-calculation-section .alert,
+.change-calculation-display .alert,
+.payment-info-section .alert {
+    background-color: inherit !important;
+}
+
+.change-calculation-section .alert-info,
+.change-calculation-display .alert-info,
+.payment-info-section .alert-info {
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+    color: #0c5460 !important;
+}
+
+.change-calculation-section .alert-warning,
+.change-calculation-display .alert-warning,
+.payment-info-section .alert-warning {
+    background-color: #fff3cd !important;
+    border-color: #ffeaa7 !important;
+    color: #856404 !important;
+}
+
+/* Button Styles for Future Use */
+.btn-delivery-action {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-delivery-action:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: white;
+}
